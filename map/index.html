@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI KR CG — Agentic AI semantic graph</title>
+<style>
+  :root{
+    --bg:#faf9f5; --surface:#ffffff; --surface2:#f1efe8;
+    --text:#26241f; --muted:#6b6a63; --border:rgba(0,0,0,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#1f1e1b; --surface:#26241f; --surface2:#2c2b27;
+      --text:#ecebe4; --muted:#a3a199; --border:rgba(255,255,255,.16); }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    line-height:1.6;padding:24px;}
+  .wrap{max-width:920px;margin:0 auto}
+  h1{font-size:22px;font-weight:500;margin:0 0 4px}
+  p.sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .legend{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;font-size:12px;color:var(--muted);margin-bottom:10px}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .ln{width:18px;height:0;display:inline-block}
+  svg{display:block;width:100%;height:auto;background:var(--surface);
+    border:.5px solid var(--border);border-radius:12px;touch-action:none}
+  #panel{margin-top:10px;min-height:44px;padding:11px 13px;border:.5px solid var(--border);
+    border-radius:8px;background:var(--surface2);font-size:13px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:22px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:.5px solid var(--border);vertical-align:top}
+  th{color:var(--muted);font-weight:500}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+  a{color:#185FA5}
+  @media (prefers-color-scheme: dark){a{color:#85B7EB}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>W3C agentic AI &times; AI KR CG repository</h1>
+  <p class="sub">Each repository document is the AI&nbsp;KR bridge between a W3C agentic effort and a neighbouring standard, converging on interoperability and a trust layer. Hover to isolate, drag to rearrange, click for the mapping.</p>
+
+  <div class="legend">
+    <span><span class="dot" style="background:#534AB7"></span>AI KR CG + repo docs</span>
+    <span><span class="dot" style="background:#1D9E75"></span>W3C agentic efforts</span>
+    <span><span class="dot" style="background:#D85A30"></span>neighbouring standards</span>
+    <span><span class="dot" style="background:#73726c"></span>destination goal</span>
+    <span><span class="ln" style="border-top:2px solid #BA7517"></span>IETF cites CG note</span>
+    <span><span class="ln" style="border-top:2px dashed #E24B4A"></span>naming collision</span>
+  </div>
+
+  <svg id="kg" viewBox="0 0 680 540" role="img" aria-label="Force-directed semantic graph linking AI KR CG repository documents to W3C agentic efforts and neighbouring standards."></svg>
+
+  <div id="panel">Hover a node to isolate its links, or click for its mapping.</div>
+
+  <table>
+    <thead><tr><th>Repo document</th><th>W3C effort</th><th>Neighbouring standard</th></tr></thead>
+    <tbody>
+      <tr><td><code>agonalign</code> — Agent Ontology Alignment</td><td>Autonomous Agents on the Web CG</td><td>HMAS / Web of Things ontologies</td></tr>
+      <tr><td><code>webMCP</code> — WebMCP Technical Notes</td><td>Web ML WG (WebMCP spec)</td><td>MCP (Model Context Protocol)</td></tr>
+      <tr><td><code>conduit</code> — Missing Layer Zero</td><td>Agent Protocol CG &middot; AIVS CG</td><td>IETF VCAP / AIVS / ATEP &middot; Google AP2</td></tr>
+      <tr><td><code>voiceAI</code> — Configurable Voice Interaction</td><td>Smart Voice Agents Workshop (Dahl)</td><td>W3C Web Speech API</td></tr>
+      <tr><td><code>DFMC</code> — Digital Forensics Model Card</td><td>AI KR CG (provenance)</td><td>Model Cards (Mitchell) + Hargreaves DF model</td></tr>
+      <tr><td><code>Solid</code> — How to Use Solid</td><td>Solid CG</td><td>Solid Pods / decentralised data</td></tr>
+    </tbody>
+  </table>
+  <p class="sub" style="margin-top:14px">Amber edges: <code>draft-stone-vcap-01</code> and <code>draft-stone-atep-01</code> cite <code>AI-KR-CG-TR-2026-001</code>. Red dashed edge: the "AIVS" acronym/scope collision between the W3C AIVS CG (Sanctuary) and the IETF <code>draft-stone-aivs</code>.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function(){
+  function run(){
+    if(!window.d3){return setTimeout(run,120);}
+    var COL={hub:'#534AB7',repo:'#6C63C9',w3c:'#1D9E75',ext:'#D85A30',goal:'#73726c'};
+    var R={hub:20,repo:13,w3c:12,ext:11,goal:16};
+    var cssText=getComputedStyle(document.body).getPropertyValue('color');
+    var cssSurface=getComputedStyle(document.body).getPropertyValue('--surface')||'#fff';
+    var nodes=[
+      {id:'AIKR',l:'AI KR CG',g:'hub',d:'AI KR CG hub \u2014 supplies the representational layer: ontic maps, formal logic and controlled natural language.'},
+      {id:'agonalign',l:'agonalign',g:'repo',d:'Repo doc \u2014 Agent Ontology Alignment: aligns the IDL Agent Ontology with the HMAS ontology stack.'},
+      {id:'webmcp',l:'webMCP notes',g:'repo',d:'Repo doc \u2014 WebMCP Technical Notes (TN1-3): navigator.modelContext; "WebMCP is not an MCP server".'},
+      {id:'conduit',l:'conduit',g:'repo',d:'Repo doc \u2014 Missing Layer Zero: capability declaration must precede agent-commerce negotiation. Cited back by Stone\u2019s IETF drafts.'},
+      {id:'voiceai',l:'voiceAI',g:'repo',d:'Repo doc \u2014 Configurable Voice Interaction Framework: extends the W3C Web Speech API.'},
+      {id:'dfmc',l:'DFMC',g:'repo',d:'Repo doc \u2014 Digital Forensics Model Card Specification: a model-card schema for web forensics.'},
+      {id:'solid',l:'Solid guide',g:'repo',d:'Repo doc \u2014 How to Use Solid: practical guide to Pods and decentralised personal data.'},
+      {id:'webagents',l:'Web Agents CG',g:'w3c',d:'Autonomous Agents on the Web CG (HMAS / hypermedia agents).'},
+      {id:'agentproto',l:'Agent Protocol CG',g:'w3c',d:'W3C Agent Protocol CG.'},
+      {id:'aivscg',l:'AIVS CG',g:'w3c',d:'AIVS CG / Sanctuary framework (E. Newton). Collides on the "AIVS" acronym with an IETF draft.'},
+      {id:'voicews',l:'Voice Agents WS',g:'w3c',d:'W3C Smart Voice Agents Workshop (chaired by D. Dahl).'},
+      {id:'webmlwg',l:'WebML WG',g:'w3c',d:'Web Machine Learning WG \u2014 home of the WebMCP spec.'},
+      {id:'solidcg',l:'Solid CG',g:'w3c',d:'W3C Solid Community Group.'},
+      {id:'mcp',l:'MCP',g:'ext',d:'Model Context Protocol.'},
+      {id:'vcap',l:'draft-stone-vcap',g:'ext',d:'IETF draft-stone-vcap (escrow settlement). Its -01 revision cites AI-KR-CG-TR-2026-001.'},
+      {id:'iaivs',l:'draft-stone-aivs',g:'ext',d:'IETF draft-stone-aivs (cryptographic proof of execution).'},
+      {id:'atep',l:'draft-stone-atep',g:'ext',d:'IETF draft-stone-atep (portable reputation). Its -01 revision cites AI-KR-CG-TR-2026-001.'},
+      {id:'ap2',l:'AP2',g:'ext',d:'Google Agent Payments Protocol.'},
+      {id:'webspeech',l:'Web Speech API',g:'ext',d:'W3C Web Speech API.'},
+      {id:'modelcards',l:'Model Cards',g:'ext',d:'Model Cards (Mitchell et al.) + Hargreaves abstract DF model.'},
+      {id:'hmas',l:'HMAS',g:'ext',d:'HMAS / Web of Things agent ontologies.'},
+      {id:'interop',l:'Interoperability',g:'goal',d:'Destination \u2014 agent interoperability.'},
+      {id:'trust',l:'Trust layer',g:'goal',d:'Destination \u2014 a trust layer for agentic systems.'}
+    ];
+    var links=[
+      ['AIKR','agonalign','pub'],['AIKR','webmcp','pub'],['AIKR','conduit','pub'],['AIKR','voiceai','pub'],['AIKR','dfmc','pub'],['AIKR','solid','pub'],
+      ['agonalign','webagents','eng'],['webmcp','webmlwg','eng'],['conduit','agentproto','eng'],['conduit','aivscg','eng'],['voiceai','voicews','eng'],['solid','solidcg','eng'],
+      ['agonalign','hmas','map'],['webmcp','mcp','map'],['conduit','vcap','map'],['conduit','iaivs','map'],['conduit','atep','map'],['conduit','ap2','map'],['voiceai','webspeech','map'],['dfmc','modelcards','map'],
+      ['webmlwg','mcp','rel'],
+      ['aivscg','iaivs','collide'],
+      ['vcap','conduit','cite'],['atep','conduit','cite'],
+      ['conduit','trust','goal'],['dfmc','trust','goal'],['aivscg','trust','goal'],['AIKR','trust','goal'],
+      ['agonalign','interop','goal'],['webmcp','interop','goal'],['mcp','interop','goal'],['AIKR','interop','goal']
+    ].map(function(x){return {source:x[0],target:x[1],t:x[2]};});
+
+    var adj={}; nodes.forEach(function(n){adj[n.id]={};});
+    links.forEach(function(e){adj[e.source][e.target]=1;adj[e.target][e.source]=1;});
+
+    var W=680,H=540,svg=d3.select('#kg'),panel=document.getElementById('panel');
+    var ld={pub:64,eng:86,map:92,rel:70,collide:74,cite:96,goal:120};
+
+    var sim=d3.forceSimulation(nodes)
+      .force('link',d3.forceLink(links).id(function(d){return d.id;}).distance(function(d){return ld[d.t]||90;}).strength(0.55))
+      .force('charge',d3.forceManyBody().strength(-330))
+      .force('center',d3.forceCenter(W/2,H/2))
+      .force('collide',d3.forceCollide().radius(function(d){return R[d.g]+16;}))
+      .force('x',d3.forceX(W/2).strength(0.04))
+      .force('y',d3.forceY(H/2).strength(0.06));
+
+    var link=svg.append('g').attr('fill','none').selectAll('line').data(links).join('line')
+      .attr('stroke',function(d){return d.t==='cite'?'#BA7517':d.t==='collide'?'#E24B4A':'var(--border)';})
+      .attr('stroke-width',function(d){return d.t==='cite'?2:d.t==='collide'?1.6:1;})
+      .attr('stroke-dasharray',function(d){return d.t==='collide'?'5 4':null;})
+      .attr('stroke-opacity',function(d){return (d.t==='cite'||d.t==='collide')?0.95:0.55;});
+
+    var node=svg.append('g').selectAll('g').data(nodes).join('g').attr('cursor','pointer')
+      .call(d3.drag()
+        .on('start',function(e,d){if(!e.active)sim.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;})
+        .on('drag',function(e,d){d.fx=e.x;d.fy=e.y;})
+        .on('end',function(e,d){if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null;}));
+
+    node.append('circle').attr('r',function(d){return R[d.g];})
+      .attr('fill',function(d){return COL[d.g];}).attr('stroke',cssSurface).attr('stroke-width',1.5);
+
+    node.append('text').text(function(d){return d.l;}).attr('text-anchor','middle')
+      .attr('y',function(d){return R[d.g]+13;})
+      .attr('font-size',function(d){return d.g==='hub'||d.g==='goal'?'12px':'11px';})
+      .attr('font-weight',function(d){return d.g==='hub'||d.g==='goal'?500:400;})
+      .attr('fill',cssText).attr('paint-order','stroke').attr('stroke',cssSurface)
+      .attr('stroke-width','3px').attr('stroke-linejoin','round');
+
+    function focus(d){
+      panel.innerHTML='<span style="color:var(--text);font-weight:500">'+d.l+'</span> &nbsp;'+d.d;
+      node.attr('opacity',function(o){return (o.id===d.id||adj[d.id][o.id])?1:0.18;});
+      link.attr('stroke-opacity',function(e){var on=(e.source.id===d.id||e.target.id===d.id);
+        if(e.t==='cite'||e.t==='collide')return on?1:0.12; return on?0.85:0.06;});
+    }
+    function reset(){node.attr('opacity',1);
+      link.attr('stroke-opacity',function(e){return (e.t==='cite'||e.t==='collide')?0.95:0.55;});}
+    node.on('mouseenter',function(e,d){focus(d);}).on('mouseleave',reset)
+        .on('click',function(e,d){focus(d);e.stopPropagation();});
+    svg.on('click',function(){reset();panel.innerHTML='Hover a node to isolate its links, or click for its mapping.';});
+
+    sim.on('tick',function(){
+      nodes.forEach(function(d){var r=R[d.g]+2;d.x=Math.max(r+8,Math.min(W-r-8,d.x));d.y=Math.max(r+6,Math.min(H-r-18,d.y));});
+      link.attr('x1',function(d){return d.source.x;}).attr('y1',function(d){return d.source.y;})
+          .attr('x2',function(d){return d.target.x;}).attr('y2',function(d){return d.target.y;});
+      node.attr('transform',function(d){return 'translate('+d.x+','+d.y+')';});
+    });
+    for(var i=0;i<340;i++)sim.tick();
+    sim.alpha(0.5).restart();
+  }
+  run();
+})();
+</script>
+</body>
+</html>
