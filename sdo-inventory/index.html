@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inventory of Agentic-AI Standards Activity — Working Draft</title>
+<script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+<script class="remove">
+  var respecConfig = {
+    specStatus: "CG-DRAFT",
+    shortName: "aikr-sdo-inventory",
+    editors: [{ name: "Paola Di Maio", company: "W3C AI KR Community Group (Chair)" }],
+    github: "w3c-cg/aikr",
+    noRecTrack: true,
+    lint: false,
+  };
+</script>
+<style>
+  :root { --w3c-blue:#005a9c; --w3c-line:#c3cedb; --w3c-head:#eaf1f8; --w3c-alt:#f6f9fc; }
+  table.inv { border-collapse: collapse; width: 100%; font-size: 0.86em; }
+  table.inv th, table.inv td { border: 1px solid var(--w3c-line); padding: 6px 9px; vertical-align: top; text-align: left; }
+  table.inv th { background: var(--w3c-head); color: var(--w3c-blue); }
+  table.inv tr:nth-child(even) td { background: var(--w3c-alt); }
+  table.inv td.body { font-weight: 600; white-space: nowrap; }
+  .wd { background:#fff6d9; border:1px solid #e6d28a; padding:2px 8px; border-radius:4px; font-size:0.85em; }
+  h2, h3 { color: var(--w3c-blue); }
+</style>
+</head>
+<body>
+
+<section id="abstract">
+  <p>
+    <span class="wd">WORKING DRAFT — sketch</span> &nbsp; This note is a first, deliberately
+    wide inventory of standardisation activity touching agentic AI on the Web, across W3C,
+    the IETF, ISO/IEC and industry / Linux Foundation efforts. For each effort it records the
+    standard being worked on, its core elements, and a <em>sketch</em> of how it aligns to the
+    AI KR CG's AIAO vocabulary and knowledge-representation layers. It is a scaffold for a
+    fuller, verified map to be developed and published separately.
+  </p>
+</section>
+
+<section id="sotd" class="introductory">
+  <p>
+    This is a <strong>working draft</strong> and a non-normative sketch. Entries reflect the
+    landscape as understood in early 2026 and require verification; several efforts are
+    actively converging or being re-homed between bodies. The alignment column is indicative,
+    not settled.
+  </p>
+</section>
+
+<section id="inventory">
+  <h2>Inventory (sketch)</h2>
+  <table class="inv">
+    <thead>
+      <tr>
+        <th>Body / Group</th>
+        <th>Standard / effort</th>
+        <th>Core elements &amp; properties</th>
+        <th>Alignment to AIAO / KR (sketch)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- W3C -->
+      <tr><td class="body">W3C — AI KR CG</td><td>AI Knowledge Representation; ontic maps</td><td>KR techniques (logic, ontologies, controlled NL); AIAO classification; ontic categories</td><td>Hub — supplies the representation layer; AIAO and ontic categories live here</td></tr>
+      <tr><td class="body">W3C — Autonomous Agents on the Web CG</td><td>HMAS / hypermedia multi-agent systems</td><td>Hypermedia agents, affordances, WoT-aligned agent models</td><td>AIAO: Embodiment, Interaction Style · Layer: Alignment</td></tr>
+      <tr><td class="body">W3C — Agent Protocol CG</td><td>Agent interaction protocols</td><td>Agent messaging, task / dialogue protocols</td><td>AIAO: Interaction Style · Layer: Interoperability</td></tr>
+      <tr><td class="body">W3C — AIVS CG (Sanctuary)</td><td>Agentic Integrity Verification Specification</td><td>.aivs / .shm audit archives; integrity / proof-of-execution</td><td>New ontic category: Verification / Trust Layer · Layer: Trust</td></tr>
+      <tr><td class="body">W3C — A2WF CG</td><td>Agent-to-Web Framework</td><td>Agent access to web resources and actions</td><td>Layer: Interoperability</td></tr>
+      <tr><td class="body">W3C — Web Machine Learning WG</td><td>WebMCP (navigator.modelContext); WebNN</td><td>In-browser tool / context exposure; JS API</td><td>AIAO: Functional Role / Cognitive (tool use) · Layer: Representation · bridges MCP</td></tr>
+      <tr><td class="body">W3C — Smart Voice Agents WS / Voice CG</td><td>Voice agent standards</td><td>Web Speech API extensions; turn / dialogue control</td><td>AIAO: Interface Modality (Voice)</td></tr>
+      <tr><td class="body">W3C — Solid CG</td><td>Decentralised data (Pods)</td><td>Pods, WebID, access control, RDF data</td><td>New ontic: data sovereignty · Layer: Trust (data)</td></tr>
+      <tr><td class="body">W3C — Verifiable Credentials WG</td><td>VC Data Model</td><td>Credentials; issuer / holder / verifier; proofs</td><td>Verification / Trust Layer · Layer: Trust</td></tr>
+      <tr><td class="body">W3C — DID WG</td><td>Decentralized Identifiers</td><td>DID methods, DID documents, resolution</td><td>Verification / Trust Layer · identity</td></tr>
+      <tr><td class="body">W3C — Web of Things WG</td><td>Thing Description</td><td>TD, affordances, protocol bindings</td><td>AIAO: Embodiment · Layer: Representation</td></tr>
+      <tr><td class="body">W3C — Provenance (PROV)</td><td>PROV-O</td><td>Entity / activity / agent provenance</td><td>Verification / Trust · provenance</td></tr>
+      <tr><td class="body">W3C — Semantic Web</td><td>RDF, OWL, SHACL, JSON-LD</td><td>Triples; ontologies; shapes / constraints; linked data</td><td>KR Language / Formalism + Constraint categories · representation substrate</td></tr>
+      <!-- IETF -->
+      <tr><td class="body">IETF — draft-stone-vcap</td><td>Verifiable capability / escrow settlement</td><td>Capability declarations; escrow; Ed25519 signatures</td><td>AIAO: capability · Layer: Interoperability + Trust · cites AI KR CG TN</td></tr>
+      <tr><td class="body">IETF — draft-stone-aivs</td><td>Agentic Integrity Verification Standard</td><td>Cryptographic proof of execution</td><td>Verification / Trust Layer · (acronym collides with W3C AIVS CG)</td></tr>
+      <tr><td class="body">IETF — draft-stone-atep</td><td>Portable agent reputation / attestation</td><td>Portable reputation; attestation tokens</td><td>Verification / Trust · cites AI KR CG TN</td></tr>
+      <tr><td class="body">IETF — OAuth 2.x / GNAP</td><td>Delegated authorization</td><td>Tokens, grants, agent / delegated auth</td><td>Verification / Trust · auth substrate</td></tr>
+      <!-- ISO -->
+      <tr><td class="body">ISO/IEC JTC 1 / SC 42</td><td>AI management, risk, terminology</td><td>22989 (concepts); 23894 (risk mgmt); 42001 (AI mgmt system)</td><td>Governance / risk facet — addresses systemic risk &amp; deviation; cross-cuts AIAO</td></tr>
+      <!-- Industry / LF -->
+      <tr><td class="body">Linux Foundation (orig. Google) — A2A</td><td>Agent2Agent interoperability protocol</td><td>Agent Cards; tasks; messages; artifacts; capabilities; JSON-RPC / HTTP</td><td>AIAO: Interaction Style (MultiAgent), Interaction Paradigm · Layer: Interoperability</td></tr>
+      <tr><td class="body">Anthropic — MCP</td><td>Model Context Protocol</td><td>Tools; resources; prompts; sampling; JSON-RPC; client / server</td><td>AIAO: tool / context invocation · Representation → Interoperability · WebMCP is its browser sibling</td></tr>
+      <tr><td class="body">Cisco / LF — AGNTCY (Internet of Agents)</td><td>OASF; Agent Directory; identity; observability</td><td>Open Agentic Schema Framework; agent identity / discovery; observability</td><td>Representation + Verification / Trust · identity &amp; discovery</td></tr>
+      <tr><td class="body">Google — AP2</td><td>Agent Payments Protocol</td><td>Mandates (Intent / Cart); payment authorization; works with A2A &amp; MCP</td><td>AIAO: Interaction Paradigm (Transactional) · Layer: Trust / commerce</td></tr>
+      <tr><td class="body">IBM / LF — ACP (BeeAI)</td><td>Agent Communication Protocol</td><td>REST-based agent messaging (converging with A2A)</td><td>AIAO: Interaction Style · Layer: Interoperability</td></tr>
+      <tr><td class="body">Microsoft — NLWeb</td><td>Natural-language web for agents</td><td>NL endpoints for websites; MCP-compatible</td><td>AIAO: Interface Modality (Text) · web-agent access</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.85em;color:#555">
+    Sketch only. To be verified and expanded for the published map; activity / status, chairs
+    and cross-membership, and precise normative scope are not yet captured.
+  </p>
+</section>
+
+</body>
+</html>
