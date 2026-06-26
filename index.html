@@ -24,10 +24,15 @@
     .tag { display: inline-block; font-size: 0.7em; font-weight: bold; padding: 0.15em 0.5em; border-radius: 3px; margin-left: 0.5em; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.04em; }
     .tag-draft { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
     .tag-editor { background: #d1ecf1; color: #0c5460; border: 1px solid #17a2b8; }
+    .tag-review { background: #f8d7da; color: #842029; border: 1px solid #dc3545; }
     .doc-meta { font-size: 0.82em; color: #555; margin-top: 0.3em; }
     .doc-desc { font-size: 0.87em; color: #444; margin-top: 0.4em; }
     .source-link { font-size: 0.78em; color: #888; margin-top: 0.3em; }
     .source-link a { color: #555; }
+    .starthere { background: #fff8e8; border: 2px solid #e6b800; border-radius: 6px; padding: 0.6em 1.4em 1.2em; margin: 1.5em 0 2.5em; }
+    .starthere h2 { border: none; color: #7a5000; margin-top: 0.6em; }
+    .starthere .lead { font-size: 0.9em; color: #6b5300; margin: 0.2em 0 1em; }
+    .starthere .deliverables li { border-color: #e6c66a; background: #fffdf6; }
     .contribute { background: #f8f8f8; border: 1px solid #ddd; padding: 0.8em 1.2em; margin-top: 2.5em; font-size: 0.87em; border-radius: 3px; }
     .contribute a { color: #005a9c; }
     footer { margin-top: 3em; padding-top: 1em; border-top: 1px solid #ccc; font-size: 0.82em; color: #666; }
@@ -53,6 +58,45 @@
 <div class="intro">
   <p>The <strong>W3C AI Knowledge Representation Community Group (AI KR CG)</strong> develops vocabularies, ontologies, and technical notes for representing knowledge in AI systems, with a focus on agent interoperability, semantic alignment, and standards readiness across the Web ecosystem.</p>
   <p>Documents listed below are Community Group Drafts unless otherwise noted. They are not W3C Standards and are not on the W3C Standards Track.</p>
+</div>
+
+<div class="starthere">
+  <h2>Start here &mdash; read these first</h2>
+  <p class="lead">New to the repository? These four orientation documents map and summarise everything below &mdash; what the CG is doing, how the notes relate to one another, and how they sit against neighbouring W3C, IETF and industry work. They are currently <strong>for community review</strong>.</p>
+  <ul class="deliverables">
+    <li>
+      <div class="doc-title">
+        <a href="https://w3c-cg.github.io/aikr/summary/">Summary &amp; Repository Map</a>
+        <span class="tag tag-review">For Review</span>
+      </div>
+      <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
+      <div class="doc-desc">The single most representative file: a trimmed-ReSpec overview of the group&rsquo;s purpose, the AIAO and interoperability-framework scaffold, and how every document in this repository fits into it.</div>
+    </li>
+    <li>
+      <div class="doc-title">
+        <a href="https://w3c-cg.github.io/aikr/map/">Repository File Map (interactive)</a>
+        <span class="tag tag-review">For Review</span>
+      </div>
+      <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
+      <div class="doc-desc">An interactive graph of the repository documents and how each connects to neighbouring W3C and IETF standards, converging on interoperability and a trust layer.</div>
+    </li>
+    <li>
+      <div class="doc-title">
+        <a href="https://w3c-cg.github.io/aikr/sdo-inventory/">Agentic AI Standards Inventory</a>
+        <span class="tag tag-review">For Review</span>
+      </div>
+      <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
+      <div class="doc-desc">A working inventory of W3C and related agentic-AI standards efforts, each with its standard, core elements, an openness read (open / gated), and KR / AIAO alignment. Community verification is welcome.</div>
+    </li>
+    <li>
+      <div class="doc-title">
+        <a href="https://w3c-cg.github.io/aikr/landscape/">Standards Landscape Map (interactive)</a>
+        <span class="tag tag-review">For Review</span>
+      </div>
+      <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
+      <div class="doc-desc">An interactive board placing each effort by framework layer (representation &rarr; trust) and openness (open / gated), making the shape of the landscape visible at a glance.</div>
+    </li>
+  </ul>
 </div>
 
 <h2>Deliverables</h2>
@@ -118,7 +162,7 @@
   </li>
 </ul>
 
-  <h3>Conduit Feedback DRAFT</h3>
+<h3>Conduit Feedback DRAFT</h3>
 <ul class="deliverables">
   <li>
     <div class="doc-title">
@@ -136,7 +180,7 @@
   <li>
     <div class="doc-title">
       <a href="https://w3c-cg.github.io/aikr/DFMC/">Digital Forensics Model Card Specification</a>
-      <span class="tag tag-editor">CG-DRAFT</span>
+      <span class="tag tag-draft">CG-Draft</span>
     </div>
     <div class="doc-meta">Editor: Paola Di Maio &nbsp;&bull;&nbsp; April 2026</div>
     <div class="doc-desc">A standardized model card framework for AI/ML systems used in digital and web forensics, including JSON schema, controlled vocabularies, and a <a href="https://huggingface.co/spaces/STARBORN/forensics_mc_generator">reference generator</a>.</div>
@@ -144,10 +188,9 @@
   </li>
 </ul>
 
-  
 <div class="contribute">
   <strong>Contributing:</strong>
-  Read the <a href="https://github.com/w3c-cg/aikr/blob/main/CONTRIBUTING.md">contributing guidelines</a> and <a href="https://github.com/w3c-cg/aikr/blob/main/CODE_OF_CONDUCT.md">code of conduct</a> before participating. File issues and pull requests via <a href="https://github.com/w3c-cg/aikr">GitHub</a> or post to the <a href="https://lists.w3.org/Archives/Public/public-aikir/">public mailing list</a>.
+  Read the <a href="https://github.com/w3c-cg/aikr/blob/main/CONTRIBUTING.md">contributing guidelines</a> and <a href="https://github.com/w3c-cg/aikr/blob/main/CODE_OF_CONDUCT.md">code of conduct</a> before participating. File issues and pull requests via <a href="https://github.com/w3c-cg/aikr">GitHub</a> or post to the <a href="https://lists.w3.org/Archives/Public/public-aikr/">public mailing list</a>.
 </div>
 
 <footer>
