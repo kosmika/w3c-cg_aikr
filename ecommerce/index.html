@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Open Standard Vocabularies for E-commerce and the Agentic Interoperability Gap</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+  <script class="remove">
+    var respecConfig = {
+      specStatus: "CG-DRAFT",
+      group: "aikr",
+      shortName: "ecommerce-vocabularies-agentic-gap",
+      edDraftURI: "https://www.w3.org/community/aikr/",
+      // Technical Note reference: assign next number in the AI-KR-CG-TR-2026 series
+      // (WebMCP TN is AI-KR-CG-TR-2026-001). Suggested: AI-KR-CG-TR-2026-NNN.
+      subtitle: "AI KR CG Technical Note — AI-KR-CG-TR-2026-NNN (assign)",
+      editors: [
+        {
+          name: "Paola Di Maio",
+          url: "https://www.w3.org/community/aikr/",
+          company: "W3C AI Knowledge Representation Community Group",
+          companyURL: "https://www.w3.org/community/aikr/",
+        },
+      ],
+      authors: [
+        { name: "W3C AI KR CG Contributors" },
+      ],
+      publishDate: "2026-06-27",
+      latestVersion: "https://w3c-cg.github.io/aikr/",
+      github: "https://github.com/w3c-cg/aikr",
+      localBiblio: {
+        "GOODRELATIONS": {
+          title: "GoodRelations: The Web Vocabulary for E-Commerce",
+          href: "http://purl.org/goodrelations/",
+          authors: ["Martin Hepp"], date: "2008–",
+        },
+        "GR-SCHEMA-2012": {
+          title: "Good Relations and schema.org (integration announcement)",
+          href: "https://blog.schema.org/2012/11/08/good-relations-and-schema-org/",
+          publisher: "schema.org", date: "8 November 2012",
+        },
+        "SCHEMA-PRODUCT": {
+          title: "schema.org: Product / Offer",
+          href: "https://schema.org/Product", publisher: "schema.org",
+        },
+        "GS1-WEBVOC": {
+          title: "GS1 Web Vocabulary",
+          href: "https://ref.gs1.org/voc/", publisher: "GS1",
+        },
+        "GS1-DIGITAL-LINK": {
+          title: "GS1 Digital Link: URI Syntax",
+          href: "https://ref.gs1.org/standards/digital-link/uri-syntax/", publisher: "GS1",
+        },
+        "UNCEFACT-VOC": {
+          title: "UN/CEFACT Vocabulary",
+          href: "https://vocabulary.uncefact.org/", publisher: "UNECE",
+        },
+        "JSON-LD11": {
+          title: "JSON-LD 1.1", href: "https://www.w3.org/TR/json-ld11/",
+          publisher: "W3C", date: "2020",
+        },
+        "GEO": {
+          title: "GEO: Generative Engine Optimization",
+          href: "https://arxiv.org/abs/2311.09735",
+          authors: ["Pranjal Aggarwal", "et al."], publisher: "KDD 2024 (CC BY 4.0)",
+        },
+        "AGENT-PROTO-SURVEY": {
+          title: "A survey of agent interoperability protocols: MCP, ACP, A2A, ANP",
+          href: "https://arxiv.org/abs/2505.02279",
+          authors: ["Abul Ehtesham", "et al."], date: "2025",
+        },
+        "ACP": {
+          title: "Agentic Commerce Protocol (ACP)",
+          href: "https://github.com/agentic-commerce-protocol/agentic-commerce-protocol",
+          publisher: "OpenAI & Stripe", date: "2025",
+        },
+        "UCP": {
+          title: "Universal Commerce Protocol (UCP)",
+          href: "https://developers.googleblog.com/under-the-hood-universal-commerce-protocol-ucp/",
+          publisher: "Google & Shopify", date: "2026",
+        },
+      },
+      abstract: `
+        <p>This Technical Note inventories the open, standardised vocabularies used to represent
+        products and offers on the Web &mdash; JSON-LD, schema.org (whose e-commerce core is the
+        GoodRelations vocabulary, integrated in November 2012), the GS1 Web Vocabulary and GS1
+        Digital Link, and UN/CEFACT &mdash; and maps how they interrelate, including the
+        GoodRelations&rarr;schema.org provenance. It then analyses where this descriptive stack falls
+        short for autonomous AI agents that must discover, verify, negotiate and transact under
+        delegated authority.</p>
+        <p>The main finding is that the stack was built to <em>describe</em> products for human
+        readers and search indexers, not to <em>afford verifiable actions</em> for autonomous
+        delegates. The three principal gaps are: (1) machine-actionable <strong>affordances</strong>
+        rather than links to human-readable pages; (2) <strong>verifiability</strong> &mdash; signed,
+        fresh, attestable offers; and (3) governable <strong>authority and creator attribution</strong>.
+        GS1's resolver link types already supply a partial trust and resource-discovery layer
+        (including <code>jws</code> signatures, a verification service, and Digital Product Passport
+        links), but no shared vocabulary yet expresses agent affordances, delegated mandates, or
+        attribution. The Note argues these gaps should be filled by <strong>extending and
+        cross-walking existing W3C primitives</strong> (schema.org Actions, Hydra, Web of Things Thing
+        Description, Decentralized Identifiers, Verifiable Credentials, PROV-O, ODRL) rather than
+        forking into protocol-private schemas &mdash; the condition under which the Web stays open
+        across MCP, UCP and ACP.</p>
+      `,
+    };
+  </script>
+</head>
+<body>
+
+<section id="sotd" class="introductory">
+  <p>This is a Technical Note of the W3C AI Knowledge Representation Community Group (AIKR CG).
+  It is not a W3C Standard and does not represent consensus of W3C Membership. It is published to
+  inform discussion at the W3C/GS1 <em>E-commerce for Humans and AI Agents</em> workshop and to
+  invite contributions in the group repository.</p>
+  <p><strong>Related work:</strong> this Note complements the group's
+  <a href="https://github.com/w3c-cg/aikr/blob/main/A2WF/intersection.md">Inventory of Efforts
+  Related to the Agent-to-Web Framework (A2WF)</a>, prepared in response to the A2WF Community Group
+  (the <code>siteai.json</code> agent-permissions initiative). Where that inventory maps efforts at
+  the <em>framework</em> level &mdash; protocols, vocabularies and trust mechanisms across the
+  agentic-web landscape &mdash; this Note drills into the <em>e-commerce vocabulary</em> layer
+  beneath them.</p>
+</section>
+
+<section id="intro">
+  <h2>Introduction and scope</h2>
+  <p>As large language models and AI agents become intermediaries between content and the people who
+  consume it, the publisher's question shifts from "how are my products found by search engines?" to
+  "how are my products discovered, interpreted, and acted upon by AI agents?" At the data layer this
+  is a <strong>knowledge-representation</strong> question: it depends on which vocabulary a catalogue
+  is expressed in and whether the agent's protocol consumes it.</p>
+  <p>This Note (a) inventories the existing open vocabulary stack for e-commerce, with provenance and
+  cross-namespace mappings; and (b) analyses what that stack lacks for autonomous, transacting
+  agents, proposing that the gaps be filled by extension and crosswalk rather than by protocol-private
+  forks. It is intended as reference material and as the evidence base for an interoperability-layer
+  proposal aligned with the group's Agent Interoperability work.</p>
+</section>
+
+<section id="composition">
+  <h2>How the layers compose</h2>
+  <p>A single JSON-LD <code>@context</code> typically mixes namespaces: <code>schema:</code> for the
+  core commerce model, <code>gs1:</code> for richer product and supply-chain detail, and
+  <code>unece:</code> (UN/CEFACT) for units and measures. GoodRelations supplies the conceptual
+  e-commerce core that was folded into schema.org in November 2012 [[GR-SCHEMA-2012]]; its original
+  namespace remains authoritative in full RDF/OWL/SPARQL environments.</p>
+  <pre class="json">{ "@context": {
+    "@vocab": "https://schema.org/",
+    "gs1":    "https://ref.gs1.org/voc/",
+    "unece":  "https://vocabulary.uncefact.org/",
+    "gr":     "http://purl.org/goodrelations/v1#"
+} }</pre>
+</section>
+
+<section id="jsonld">
+  <h2>Layer 0 — JSON-LD (serialization / linking syntax)</h2>
+  <p>Not a vocabulary but the W3C syntax that carries the vocabularies and links them [[JSON-LD11]].</p>
+  <table class="simple">
+    <thead><tr><th>Keyword</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>@context</code></td><td>Maps short terms to IRIs; declares which vocabularies are in use</td></tr>
+      <tr><td><code>@vocab</code></td><td>Default vocabulary for unprefixed terms (usually schema.org)</td></tr>
+      <tr><td><code>@id</code></td><td>Global identifier (IRI) for a node — the basis of Linked Data</td></tr>
+      <tr><td><code>@type</code></td><td>Declares the class of a node (e.g. <code>Product</code>, <code>Offer</code>)</td></tr>
+      <tr><td><code>@graph</code></td><td>A set of nodes — used for product lists / multi-entity payloads</td></tr>
+      <tr><td><code>@value</code>, <code>@language</code></td><td>Literal value and its language tag</td></tr>
+      <tr><td><code>@container</code>, <code>@list</code>, <code>@set</code></td><td>Ordering / collection semantics</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="schema">
+  <h2>Layer 1 — schema.org commerce core</h2>
+  <p>Since the November 2012 integration, GoodRelations is the e-commerce core of schema.org
+  [[GR-SCHEMA-2012]] [[SCHEMA-PRODUCT]]. The <strong>GR origin</strong> column shows the originating
+  GoodRelations class or property where applicable.</p>
+
+  <h3>1a. Types / classes</h3>
+  <table class="simple">
+    <thead><tr><th>schema.org type</th><th>Role</th><th>GR origin</th></tr></thead>
+    <tbody>
+      <tr><td><code>Product</code></td><td>A product (good/service offered for sale)</td><td><code>gr:ProductOrService</code></td></tr>
+      <tr><td><code>ProductModel</code></td><td>A datasheet/model (vs. an instance)</td><td><code>gr:ProductOrServiceModel</code></td></tr>
+      <tr><td><code>IndividualProduct</code></td><td>A single identifiable instance</td><td><code>gr:Individual</code></td></tr>
+      <tr><td><code>SomeProducts</code></td><td>An anonymous quantity of items</td><td><code>gr:SomeItems</code></td></tr>
+      <tr><td><code>ProductGroup</code> / <code>ProductCollection</code></td><td>Variant groupings / collections</td><td>— (later additions)</td></tr>
+      <tr><td><code>Offer</code></td><td>An offer to transfer rights / provide a service</td><td><code>gr:Offering</code></td></tr>
+      <tr><td><code>AggregateOffer</code></td><td>A set of offers (price range, count)</td><td>—</td></tr>
+      <tr><td><code>Demand</code></td><td>A wanted/sought offer (buy-side)</td><td><code>gr:Offering</code> (seek)</td></tr>
+      <tr><td><code>PriceSpecification</code></td><td>A price structure</td><td><code>gr:PriceSpecification</code></td></tr>
+      <tr><td><code>UnitPriceSpecification</code></td><td>Price per unit of measure</td><td><code>gr:UnitPriceSpecification</code></td></tr>
+      <tr><td><code>DeliveryChargeSpecification</code></td><td>Shipping/delivery cost</td><td><code>gr:DeliveryChargeSpecification</code></td></tr>
+      <tr><td><code>PaymentChargeSpecification</code></td><td>Surcharge per payment method</td><td><code>gr:PaymentChargeSpecification</code></td></tr>
+      <tr><td><code>TypeAndQuantityNode</code></td><td>"N units of product X" within a bundle</td><td><code>gr:TypeAndQuantityNode</code></td></tr>
+      <tr><td><code>QuantitativeValue</code></td><td>A measured value with unit</td><td><code>gr:QuantitativeValue</code></td></tr>
+      <tr><td><code>WarrantyPromise</code></td><td>Warranty terms attached to an offer</td><td><code>gr:WarrantyPromise</code></td></tr>
+      <tr><td><code>BusinessFunction</code> (enum)</td><td>Sell, Lease, Repair, Dispose…</td><td><code>gr:BusinessFunction</code></td></tr>
+      <tr><td><code>DeliveryMethod</code> (enum)</td><td>Mail, freight, own fleet, pickup…</td><td><code>gr:DeliveryMethod</code></td></tr>
+      <tr><td><code>PaymentMethod</code> (enum)</td><td>Cash, card, bank transfer…</td><td><code>gr:PaymentMethod</code></td></tr>
+      <tr><td><code>OfferItemCondition</code> (enum)</td><td>New / Used / Refurbished / Damaged</td><td><code>gr:Condition</code></td></tr>
+      <tr><td><code>Organization</code></td><td>The selling business entity</td><td><code>gr:BusinessEntity</code></td></tr>
+      <tr><td><code>Brand</code></td><td>A brand associated with a product/offer</td><td><code>gr:Brand</code></td></tr>
+      <tr><td><code>OpeningHoursSpecification</code></td><td>Store opening hours</td><td><code>gr:OpeningHoursSpecification</code></td></tr>
+      <tr><td><code>MerchantReturnPolicy</code></td><td>Return/refund terms</td><td>— (later addition)</td></tr>
+      <tr><td><code>Review</code>, <code>AggregateRating</code></td><td>Ratings and reviews</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1b. Key properties</h3>
+  <table class="simple">
+    <thead><tr><th>schema.org property</th><th>Role</th><th>GR origin</th></tr></thead>
+    <tbody>
+      <tr><td><code>offers</code></td><td>Links a Product to its Offer(s)</td><td><code>gr:offers</code></td></tr>
+      <tr><td><code>seller</code></td><td>The Organization making the offer</td><td><code>gr:offers</code> (inverse)</td></tr>
+      <tr><td><code>price</code></td><td>The price value</td><td><code>gr:hasCurrencyValue</code></td></tr>
+      <tr><td><code>priceCurrency</code></td><td>ISO 4217 currency code</td><td><code>gr:hasCurrency</code></td></tr>
+      <tr><td><code>priceSpecification</code></td><td>Links to a PriceSpecification</td><td><code>gr:hasPriceSpecification</code></td></tr>
+      <tr><td><code>businessFunction</code></td><td>Sell / lease / repair…</td><td><code>gr:hasBusinessFunction</code></td></tr>
+      <tr><td><code>itemCondition</code></td><td>New / used / refurbished</td><td><code>gr:condition</code></td></tr>
+      <tr><td><code>availability</code></td><td>InStock / OutOfStock / PreOrder…</td><td><code>gr:hasInventoryLevel</code> (related)</td></tr>
+      <tr><td><code>eligibleQuantity</code></td><td>Order quantity bounds</td><td><code>gr:hasEligibleQuantity</code></td></tr>
+      <tr><td><code>eligibleRegion</code></td><td>Geographic eligibility</td><td><code>gr:eligibleRegions</code></td></tr>
+      <tr><td><code>acceptedPaymentMethod</code></td><td>Accepted payment methods</td><td><code>gr:acceptedPaymentMethods</code></td></tr>
+      <tr><td><code>validFrom</code>, <code>validThrough</code></td><td>Offer validity window</td><td><code>gr:validFrom</code>, <code>gr:validThrough</code></td></tr>
+      <tr><td><code>gtin</code>, <code>gtin8/12/13/14</code></td><td>GS1 trade item numbers</td><td><code>gr:hasEAN_UCC-13</code> / <code>gr:hasGTIN-14</code></td></tr>
+      <tr><td><code>mpn</code>, <code>sku</code></td><td>Manufacturer part / stock-keeping numbers</td><td><code>gr:hasMPN</code> / <code>gr:hasStockKeepingUnit</code></td></tr>
+      <tr><td><code>brand</code></td><td>Brand</td><td><code>gr:hasBrand</code></td></tr>
+      <tr><td><code>hasGS1DigitalLink</code></td><td>Link to a GS1 Digital Link URI</td><td>— (GS1 bridge)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="goodrelations">
+  <h2>Layer 2 — GoodRelations (original namespace)</h2>
+  <p>Authored by Martin Hepp [[GOODRELATIONS]]; an independent OWL vocabulary that remains primary in
+  RDF/RDFa/OWL/SPARQL contexts, with mapping axioms to schema.org. At integration the overlap was
+  small (only 5 of schema.org's 315 classes coincided with 27 GoodRelations classes), so most GR
+  classes were <em>new</em> additions rather than duplicates. Use this mapping when consuming Linked
+  Data published in the original <code>http://purl.org/goodrelations/v1#</code> namespace.</p>
+  <table class="simple">
+    <thead><tr><th>GoodRelations term</th><th>schema.org equivalent</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td><code>gr:BusinessEntity</code></td><td><code>Organization</code></td><td>The legal entity offering goods/services</td></tr>
+      <tr><td><code>gr:Offering</code></td><td><code>Offer</code></td><td>Core "offer to sell/lease/repair…" node</td></tr>
+      <tr><td><code>gr:ProductOrService</code></td><td><code>Product</code> / <code>Service</code></td><td>Generic offered item</td></tr>
+      <tr><td><code>gr:ProductOrServiceModel</code></td><td><code>ProductModel</code></td><td>A make/model datasheet</td></tr>
+      <tr><td><code>gr:Individual</code> / <code>gr:SomeItems</code></td><td><code>IndividualProduct</code> / <code>SomeProducts</code></td><td>Instance vs. anonymous batch</td></tr>
+      <tr><td><code>gr:PriceSpecification</code></td><td><code>PriceSpecification</code></td><td>Price structure</td></tr>
+      <tr><td><code>gr:UnitPriceSpecification</code></td><td><code>UnitPriceSpecification</code></td><td>Price per unit</td></tr>
+      <tr><td><code>gr:TypeAndQuantityNode</code></td><td><code>TypeAndQuantityNode</code></td><td>Quantity of a product in a bundle</td></tr>
+      <tr><td><code>gr:BusinessFunction</code></td><td><code>BusinessFunction</code></td><td>Sell/Lease/Repair/Dispose enumeration</td></tr>
+      <tr><td><code>gr:hasBusinessFunction</code></td><td><code>businessFunction</code></td><td>Renamed on integration</td></tr>
+      <tr><td><code>gr:hasPriceSpecification</code></td><td><code>priceSpecification</code></td><td>Renamed on integration</td></tr>
+      <tr><td><code>gr:hasCurrency</code> / <code>gr:hasCurrencyValue</code></td><td><code>priceCurrency</code> / <code>price</code></td><td>Split into two schema.org properties</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="gs1">
+  <h2>Layer 3 — GS1 Web Vocabulary</h2>
+  <p>The first large-scale <strong>external extension</strong> to schema.org [[GS1-WEBVOC]]: it extends
+  schema.org under Linked Data principles with explicit mappings, adding supply-chain and
+  consumer-facing master data (initial focus: apparel, footwear, food/beverage/tobacco). Properties
+  derive from existing GS1 standards (GDSN, GS1 Source, GPC); <code>Offer</code> is a GS1-specific
+  addition. The complete normative list is the JSON-LD ontology at
+  <code>https://ref.gs1.org/voc/data/gs1Voc.jsonld</code>; terms are ratified via the GS1 Global
+  Standards Management Process and maintained at <code>github.com/gs1/WebVoc</code>.</p>
+
+  <h3>3a. Verified terms (illustrative)</h3>
+  <table class="simple">
+    <thead><tr><th>GS1 term</th><th>Kind</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>gs1:Product</code></td><td>class</td><td>Trade item (extends <code>schema:Product</code>)</td></tr>
+      <tr><td><code>gs1:Offer</code></td><td>class</td><td>Product offered by a party for a price (GS1-specific)</td></tr>
+      <tr><td><code>gs1:Organization</code></td><td>class</td><td>Party / business entity</td></tr>
+      <tr><td><code>gs1:Clothing</code></td><td>class</td><td>Apparel trade item (specialised product class)</td></tr>
+      <tr><td><code>gs1:OrganicClaimDetails</code></td><td>class</td><td>Structured organic-certification claim</td></tr>
+      <tr><td><code>gs1:gtin</code></td><td>property</td><td>Global Trade Item Number</td></tr>
+      <tr><td><code>gs1:brand</code></td><td>property</td><td>Brand of the trade item</td></tr>
+      <tr><td><code>gs1:netContent</code></td><td>property</td><td>Net quantity/content with unit</td></tr>
+      <tr><td><code>gs1:packagingType</code></td><td>property</td><td>Packaging type code</td></tr>
+      <tr><td><code>gs1:consumerProductVariant</code></td><td>property</td><td>Links variant trade items</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3b. GS1 Digital Link and resolver link types — the hypermedia/affordance layer</h3>
+  <p>GS1 Digital Link expresses GS1 keys (GTIN, batch/lot, serial…) as a resolvable Web URI
+  [[GS1-DIGITAL-LINK]]; the resolver returns <strong>typed links</strong> to related resources. The
+  link-type idea is rooted in Web Linking / HATEOAS / REST: it is a <em>resource-pointer</em> layer,
+  not (yet) a machine-actionable API-contract layer — a distinction central to the gap analysis.
+  Several link types are already agent-relevant (marked ●).</p>
+  <table class="simple">
+    <thead><tr><th>Group</th><th>Link types</th></tr></thead>
+    <tbody>
+      <tr><td>Product info</td><td><code>pip</code>, <code>instructions</code>, <code>quickStartGuide</code>, <code>whatsInTheBox</code>, <code>ingredientsInfo</code>, <code>nutritionalInfo</code>, <code>allergenInfo</code>, <code>faqs</code>, <code>tutorial</code>, <code>smartLabel</code>, <code>relatedImage</code>, <code>relatedVideo</code></td></tr>
+      <tr><td>Trust / verification ●</td><td><code>jws</code> (JSON Web Signature), <code>verificationService</code>, <code>certificationInfo</code>, <code>recallStatus</code>, <code>safetyInfo</code>, <code>masterData</code></td></tr>
+      <tr><td>Traceability ●</td><td><code>traceability</code>, <code>epcis</code>, <code>dpp</code> (Digital Product Passport), <code>sustainabilityInfo</code></td></tr>
+      <tr><td>Transaction / commerce ●</td><td><code>paymentLink</code>, <code>loyaltyProgram</code>, <code>subscribe</code>, <code>promotion</code>, <code>scheduleTime</code> (reservation), <code>registerProduct</code> (warranty), <code>purchaseSuppliesOrAccessories</code>, <code>hasRetailers</code></td></tr>
+      <tr><td>Org / location</td><td><code>homepage</code>, <code>locationInfo</code>, <code>logisticsInfo</code>, <code>openingHoursInfo</code>, <code>support</code>, <code>registryEntry</code>, <code>socialMedia</code></td></tr>
+      <tr><td>Reviews / engagement</td><td><code>review</code>, <code>leaveReview</code>, <code>userAgreement</code>, <code>reportFound</code></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="uncefact">
+  <h2>Related layer — UN/CEFACT vocabulary</h2>
+  <p>Supplies units of measure and trade/measurement types that complement schema.org and GS1 in
+  product markup (e.g. <code>unece:MeasureType</code>, <code>unece:MeasureTypeCode</code>)
+  [[UNCEFACT-VOC]]. Frequently co-used in the same JSON-LD <code>@context</code> for precise units.</p>
+</section>
+
+<section id="provenance">
+  <h2>Provenance summary</h2>
+  <table class="simple">
+    <thead><tr><th>Vocabulary</th><th>Maintainer</th><th>Namespace</th><th>Status in the stack</th></tr></thead>
+    <tbody>
+      <tr><td>JSON-LD</td><td>W3C</td><td>(syntax)</td><td>Serialization / linking layer</td></tr>
+      <tr><td>schema.org</td><td>Google, Microsoft/Bing, Yahoo, Yandex</td><td><code>https://schema.org/</code></td><td>Core web commerce vocabulary</td></tr>
+      <tr><td>GoodRelations</td><td>Martin Hepp</td><td><code>http://purl.org/goodrelations/v1#</code></td><td>E-commerce core of schema.org since Nov 2012; independent in RDF/OWL</td></tr>
+      <tr><td>GS1 Web Vocabulary</td><td>GS1</td><td><code>https://ref.gs1.org/voc/</code></td><td>External extension of schema.org; supply-chain + consumer detail</td></tr>
+      <tr><td>UN/CEFACT</td><td>UNECE</td><td><code>https://vocabulary.uncefact.org/</code></td><td>Units / measures / trade terms</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="gap-analysis">
+  <h2>Agentic extensions — gap analysis</h2>
+  <p>Every vocabulary above was built to <em>describe</em> products for two readers: a human browsing
+  a page, and a search engine building an index. Autonomous agents that <strong>discover, verify,
+  negotiate, transact and act under delegated authority</strong> are a third consumer the stack was
+  not designed for. They need three things the descriptive stack underprovides:</p>
+  <ol>
+    <li><strong>Affordances, not just descriptions</strong> — machine-actionable operations with
+    typed parameters, not links to human-readable pages. GS1's resolver link types
+    (<code>paymentLink</code>, <code>registerProduct</code>, <code>scheduleTime</code>, …) point
+    <em>to</em> where actions happen but do not describe the <em>contract</em> of those actions.</li>
+    <li><strong>Verifiability</strong> — signed, fresh, attestable facts so an agent does not act on a
+    hallucinated or stale price. GS1 already ships two primitives (<code>jws</code>,
+    <code>verificationService</code>); they are not yet bound into the <code>Offer</code> model as a
+    signed-offer pattern.</li>
+    <li><strong>Governable authority + attribution</strong> — who may act, within what limits, and how
+    content creators are credited when an agent uses or routes value through their content. This is
+    the open-Web question expressed at the vocabulary layer.</li>
+  </ol>
+  <p><strong>Principle:</strong> <em>extend and crosswalk, don't fork.</em> Most needs below can be
+  met by binding existing W3C primitives to schema.org/GS1 rather than inventing protocol-private
+  schemas — which is what keeps the Web open across MCP, UCP and ACP [[AGENT-PROTO-SURVEY]] [[ACP]]
+  [[UCP]].</p>
+
+  <table class="simple">
+    <thead><tr><th>#</th><th>Agent use case</th><th>What the stack has today</th><th>Missing entities / vocabulary</th><th>Candidate standard to extend with</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Discover what I can <em>do</em> here (checkout, returns, subscribe)</td><td>GS1 link types point to pages/APIs; <code>schema:potentialAction</code> is thin</td><td>Machine-actionable affordance/operation descriptions with typed inputs, endpoints, preconditions</td><td>schema.org Actions (<code>EntryPoint</code>, <code>*Action</code>); W3C Hydra; W3C Web of Things Thing Description</td></tr>
+      <tr><td>2</td><td>Prove who I am and on whose behalf</td><td>Nothing for agent identity/delegation</td><td>Agent identity + mandate/authority (scope, spend limit, purpose, expiry)</td><td>W3C DIDs; W3C Verifiable Credentials; open mandate vocabulary (cf. AP2 consent proofs)</td></tr>
+      <tr><td>3</td><td>Trust the data is authentic and current</td><td><code>jws</code>, <code>verificationService</code> link types; <code>priceValidUntil</code></td><td>Signed/attested Offer pattern; enforceable freshness</td><td>W3C PROV-O; VC-wrapped offers; C2PA / Content Credentials for media</td></tr>
+      <tr><td>4</td><td>Negotiate / get a quote / apply loyalty</td><td><code>gr:Demand</code>; <code>loyaltyProgram</code> link</td><td>Negotiation vocabulary: RFQ, counter-offer, conditional &amp; disclosed personalised pricing</td><td>New extension over GoodRelations <code>Offer</code>/<code>Demand</code></td></tr>
+      <tr><td>5</td><td>Drive a transaction deterministically</td><td><code>schema:Order</code>, <code>OrderStatus</code> (thin)</td><td>Session/transaction state machine, idempotency keys, typed error semantics</td><td>Extend schema.org Order; align with ACP/UCP checkout state models</td></tr>
+      <tr><td>6</td><td>Respect consent, privacy &amp; usage policy</td><td>None wired to commerce</td><td>Machine-readable policy/consent: what the agent may share/do; rights on the data</td><td>W3C ODRL; W3C Data Privacy Vocabulary (DPV)</td></tr>
+      <tr><td>7</td><td>Keep the open-Web incentive: credit creators</td><td>None</td><td>Attribution / value-flow vocabulary for agent-mediated use and sales</td><td>New extension; relate to TDM Reservation Protocol + ODRL</td></tr>
+      <tr><td>8</td><td>Compare &amp; substitute products</td><td><code>isAccessoryOrSparePartFor</code>, <code>isSimilarTo</code>, <code>isVariantOf</code> (thin)</td><td>Agent-grade equivalence / substitutability / compatibility semantics + shared classification</td><td>GS1 GPC, eCl@ss, UNSPSC, Google Product Taxonomy as alignment targets</td></tr>
+      <tr><td>9</td><td>Read sustainability &amp; regulatory attributes</td><td><code>dpp</code>, <code>sustainabilityInfo</code>, <code>OrganicClaimDetails</code>, <code>certificationInfo</code></td><td>Full Digital Product Passport data model bound to the offer</td><td>GS1 DPP work + EU Digital Product Passport alignment</td></tr>
+      <tr><td>10</td><td>Assess and be assessed for trust (reputation)</td><td><code>review</code>, <code>AggregateRating</code> (about products)</td><td>Agent/merchant reputation &amp; attestation — trust signals about the actors</td><td>VC-based reputation; extend <code>Review</code>/<code>Rating</code> to agent actors</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="conclusion">
+  <h2>Conclusion</h2>
+  <p>Rows 1–3 and 7 of the gap table are where proprietary protocols are currently filling the vacuum
+  each in their own way — ACP's feed and checkout API, UCP's capability profiles, AP2's consent
+  proofs. If affordance, authority and attribution semantics are standardised as <strong>open
+  extensions to the shared vocabulary</strong>, content stays publishable once and remains legible to
+  every agent ecosystem; if they are not, each protocol forks its own and the publisher is back to an
+  N&times;N integration burden. A vocabulary-neutral interoperability layer — the AIKR CG proposal —
+  is the crosswalk that prevents the fork and keeps the Web open.</p>
+</section>
+
+<section id="status-of-terms" class="appendix">
+  <h2>Verification status of terms</h2>
+  <p>schema.org and GoodRelations terms and the GoodRelations&rarr;schema.org mappings are drawn from
+  the published vocabularies and the 2012 integration record. GS1 classes, properties and the
+  complete link-type set are verified against the live GS1 Web Vocabulary; food/allergen/nutrition
+  <em>property</em> names should be confirmed against the JSON-LD ontology dataset before normative
+  use. Candidate standards named in the gap table are existing W3C or industry specifications cited as
+  extension targets, not as current bindings.</p>
+</section>
+
+</body>
+</html>
