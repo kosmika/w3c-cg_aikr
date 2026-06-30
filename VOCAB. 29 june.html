@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI KR CG — Agentic AI Vocabulary — Semantic Map</title>
+<script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<style>
+  :root{ --bg:#0f1115; --panel:#171a21; --ink:#e7e9ee; --mut:#9aa3b2; --line:#2a2f3a; }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #wrap{display:flex;height:100vh;width:100%}
+  #net{flex:1;height:100%;border-right:1px solid var(--line)}
+  #side{width:340px;min-width:340px;padding:18px 18px 28px;overflow:auto;background:var(--panel)}
+  h1{font-size:15px;margin:0 0 2px;letter-spacing:.2px}
+  .sub{font-size:11px;color:var(--mut);margin:0 0 14px;line-height:1.5}
+  .term{font-size:18px;font-weight:600;margin:14px 0 2px}
+  .sec{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut);margin-bottom:8px}
+  .def{font-size:13px;line-height:1.55;margin:0 0 10px}
+  .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--mut);margin:12px 0 4px}
+  .src{font-size:12px;color:#cdd3df;line-height:1.5}
+  .rel{font-size:12px;line-height:1.7}
+  .rel b{color:#fff}
+  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;margin:2px 4px 2px 0;background:#222733;border:1px solid var(--line);cursor:pointer}
+  .legend{margin:8px 0 0;font-size:11px;line-height:1.9}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .hint{font-size:11px;color:var(--mut);margin-top:16px;line-height:1.5;border-top:1px solid var(--line);padding-top:12px}
+  #search{width:100%;padding:7px 9px;margin-bottom:6px;background:#0c0e12;border:1px solid var(--line);color:var(--ink);border-radius:6px;font-size:12px}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="net"></div>
+  <div id="side">
+    <h1>Agentic AI Vocabulary — Semantic Map</h1>
+    <p class="sub">AI KR CG working draft, June 2026. A KR artefact for landscaping the agentic-AI ecosystem. Click a node for its definition, source and relations. Drag to rearrange; scroll to zoom.</p>
+    <input id="search" placeholder="filter terms…" oninput="doFilter(this.value)">
+    <div class="legend">
+      <span class="dot" style="background:#6C8EBF"></span>1 · Agentic commerce, oversight &amp; reflexivity<br>
+      <span class="dot" style="background:#B85450"></span>2 · EU regulatory frameworks<br>
+      <span class="dot" style="background:#82B366"></span>3 · Financial crime, stablecoin &amp; tokenization<br>
+      <span class="dot" style="background:#D6B656"></span>4 · Quant, biotech &amp; applied coding<br>
+      <span class="dot" style="background:#9673A6"></span>5 · Security, safety &amp; interpretability
+    </div>
+    <div id="detail"></div>
+    <p class="hint">Edges are SKOS-style relations (partOf, broader, related, regulates, mitigates…). They are proposed, for discussion — not a finished ontology. Cross-section edges are where the domains actually touch.</p>
+  </div>
+</div>
+<script>
+const groups = {
+ 1:{color:"#6C8EBF"},2:{color:"#B85450"},3:{color:"#82B366"},4:{color:"#D6B656"},5:{color:"#9673A6"}
+};
+// id, group, short definition, source
+const N = [
+ ["agentic clearing",1,"Layer that judges whether an agent met its obligations, assigns liability, and sets the settlement action.","RAILS, arXiv 2606.08790"],
+ ["clearing function",1,"Deterministic process turning reliability scores into a settlement/dispute consequence.","RAILS, arXiv 2606.08790"],
+ ["verification-native clearing",1,"Clearing checks embedded in the verification phase, not bolted on after.","RAILS, arXiv 2606.08790"],
+ ["per-output reliability score",1,"A metric on each agent output quantifying quality and constraint adherence.","RAILS, arXiv 2606.08790"],
+ ["published reliability record",1,"Durable inspectable log of historical reliability scores.","RAILS, arXiv 2606.08790"],
+ ["settlement determination",1,"The decision on how assets move, distinct from execution.","RAILS, arXiv 2606.08790"],
+ ["RAILS",1,"Three-part clearing framework (score, record, clearing function). Acronym expansion unconfirmed.","arXiv 2606.08790"],
+ ["x402",1,"Agent payment scheme on HTTP 402; agents settle value inline with a request.","Coinbase"],
+ ["AP2",1,"Agent Payments Protocol: mandate-based authorization of agent value transfer.","Google"],
+ ["mandate protocol",1,"Rules enforcing pre-approved bounds and caps on an agent's spending.","cf. AP2"],
+ ["graduated human oversight",1,"Review depth/timing scaled to an action's risk and blast radius.","GAIE, arXiv 2606.22484"],
+ ["GAIE",1,"Framework for proportionate oversight of agentic actions. Acronym expansion unconfirmed.","arXiv 2606.22484"],
+ ["regulatory risk profile",1,"Classification of a task by compliance and harm potential.","GAIE, arXiv 2606.22484"],
+ ["blast-radius oversight",1,"Review intensity mapped to what a flawed change could disrupt.","GAIE, arXiv 2606.22484"],
+ ["generation-to-deployment lifecycle",1,"End-to-end pipeline from AI generation to production.","GAIE, arXiv 2606.22484"],
+ ["development-pipeline governance",1,"Gates and controls monitoring agent activity in delivery pipelines.","GAIE, arXiv 2606.22484"],
+ ["evidence artifacts",1,"Logs, signatures, decision records proving compliance.","GAIE, arXiv 2606.22484"],
+ ["agent-as-judge",1,"A constrained secondary model auditing a primary agent's outputs.","Zhuge et al. 2024; arXiv 2509.08380"],
+ ["reflexivity",1,"Biased expectations alter market reality in a feedback loop.","Soros 1987; arXiv 2606.00061"],
+ ["participative function",1,"Where expectations become capital allocations that move prices.","Soros 1987; arXiv 2606.00061"],
+ ["cognitive function",1,"Where prices/trends are observed to form imperfect expectations.","Soros 1987; arXiv 2606.00061"],
+ ["memorization control",1,"Controls preventing regurgitation of training data; here, benchmark-contamination control.","arXiv 2606.00061"],
+ ["directional forecasting accuracy",1,"Share of correct up/down predictions, independent of magnitude.","arXiv 2606.00061"],
+ ["Sharpe ratio",1,"Risk-adjusted return: excess return over volatility.","Sharpe 1966"],
+ ["GPAI",2,"General-Purpose AI: models with broad cross-domain capability.","Reg (EU) 2024/1689"],
+ ["GPAI enforcement",2,"Audit and penalty regime compelling GPAI compliance (from 2 Aug 2026).","EC guidelines"],
+ ["AI Office",2,"EC body supervising GPAI compliance.","Reg (EU) 2024/1689"],
+ ["GPAI Code of Practice",2,"Operational manual of steps/mitigations for GPAI providers.","EC guidelines"],
+ ["alternative adequate means",2,"Compliance via internal frameworks achieving equivalent outcomes.","EC guidelines"],
+ ["Article 51",2,"AI Act provision classifying GPAI as systemic-risk.","Reg (EU) 2024/1689"],
+ ["Article 53",2,"AI Act documentation/transparency/copyright duties for GPAI.","Reg (EU) 2024/1689"],
+ ["10^25 FLOP threshold",2,"Training-compute trigger flagging potential systemic capability.","Reg (EU) 2024/1689"],
+ ["prEN 18286",2,"Draft standard: AI quality management.","CEN-CENELEC JTC 21"],
+ ["prEN 18228",2,"Draft standard: robustness, accuracy, predictability.","CEN-CENELEC JTC 21"],
+ ["prEN 18229",2,"Draft standards (18229-1/2): lifecycle engineering &amp; cybersecurity.","CEN-CENELEC JTC 21"],
+ ["prEN 18282",2,"Draft standard: recording, logging, tracing.","CEN-CENELEC JTC 21"],
+ ["prEN 18283",2,"Draft standard: human oversight.","CEN-CENELEC JTC 21"],
+ ["prEN 18284",2,"Draft standard: information provision &amp; transparency.","CEN-CENELEC JTC 21"],
+ ["SAR",3,"Suspicious Activity Report: confidential filing of suspected illicit activity.","FinCEN; arXiv 2509.08380"],
+ ["AML",3,"Anti-Money Laundering framework of laws and procedures.","FATF; US BSA"],
+ ["BSA",3,"Bank Secrecy Act: US AML-detection legislation.","31 U.S.C. 5311+"],
+ ["FATF",3,"Financial Action Task Force: sets AML/CFT standards.","FATF"],
+ ["FinCEN",3,"US Treasury bureau analysing financial-crime data.","US Treasury"],
+ ["AI-privacy guard layer",3,"Layer shielding PII before data enters AI pipelines.","arXiv 2509.08380"],
+ ["crime-typology alignment",3,"Matching transactions to known criminal patterns.","arXiv 2509.08380"],
+ ["FCC",3,"Financial Crime Compliance function and workflows.","industry usage"],
+ ["sanctions false-positive classifier",3,"Model filtering wrong sanctions name-matches.","industry usage"],
+ ["par-value redemption",3,"Right to redeem a stablecoin for fiat 1:1 on demand.","arXiv 2604.17167"],
+ ["reserve quality",3,"Safety/liquidity of assets backing a stablecoin.","arXiv 2604.17167"],
+ ["redemption surge",3,"Sudden mass redemption demand, often panic-driven.","arXiv 2604.17167"],
+ ["broker-dealer intermediation",3,"Reliance on dealers to liquidate backing securities.","arXiv 2604.17167"],
+ ["hierarchy of money",3,"Ranking of instruments by liquidity and counterparty risk.","Mehrling; arXiv 2604.17167"],
+ ["GENIUS Act",3,"US 2025 law framing dollar payment stablecoins.","GENIUS Act 2025"],
+ ["PPSI",3,"Permitted Payment Stablecoin Issuer; under FinCEN rule, subject to BSA/AML & sanctions duties.","FinCEN/OFAC FINCEN-2026-0100"],
+ ["MiCA",3,"EU framework for crypto-assets and stablecoins.","Reg (EU) 2023/1114"],
+ ["real-world asset tokenization",3,"Representing rights to real assets as on-chain tokens.","arXiv 2606.08534"],
+ ["RWA",3,"Real-World Asset that has been tokenised.","arXiv 2606.08534"],
+ ["oracle risk",3,"Risk from inaccurate/manipulated external data feeds.","arXiv 2606.08534"],
+ ["platform concentration",3,"Systemic risk from reliance on one protocol/provider.","arXiv 2606.08534"],
+ ["whitelist transferability",3,"Tokens transfer only between identity-checked addresses.","arXiv 2606.08534"],
+ ["rebasing",3,"Supply auto-adjusts to reflect yield/price.","arXiv 2606.08534"],
+ ["settlement model",3,"Framework finalising ownership transfer (atomic, deferred net…).","arXiv 2606.08534"],
+ ["parametric synthetic benchmark",4,"Generated time-series test data with controllable stress.","FinStressTS, arXiv 2606.03184"],
+ ["tail risk",4,"Probability of extreme losses from rare events.","arXiv 2606.03184"],
+ ["stress testing",4,"Simulating extreme shocks to test survival.","arXiv 2606.03184; BCBS"],
+ ["model risk",4,"Risk from flawed or misapplied models.","arXiv 2606.03184; Fed SR 11-7"],
+ ["Basel III",4,"International bank capital/stress/liquidity framework.","BCBS"],
+ ["regime switch",4,"Abrupt structural shift in market behaviour.","arXiv 2606.03184; 2606.00624"],
+ ["agentic drug discovery",4,"Autonomous agents across the discovery pipeline.","Beyond SMILES, arXiv 2602.10163"],
+ ["SMILES",4,"String notation for chemical structures.","Weininger 1988"],
+ ["Eroom's law",4,"Drug-discovery productivity per R&D dollar falls over time.","Scannell et al. 2012"],
+ ["process vs molecule benchmark",4,"Grading pipeline orchestration vs single-structure design.","arXiv 2602.10163"],
+ ["human-in-the-loop discovery",4,"Humans guide/review/approve agent recommendations.","arXiv 2602.10163; Robin 2026"],
+ ["target identification",4,"Pinpointing a disease-relevant molecule or pathway.","arXiv 2602.10163"],
+ ["reverse translation",4,"Taking clinical outcomes back into lab models.","arXiv 2602.10163"],
+ ["ChatInvent",4,"Agentic molecular-design system reported at AstraZeneca.","He et al., Drug Discovery Today 2026"],
+ ["compliance-as-code",4,"Regulatory rules written as executable software.","Compliance-to-Code, arXiv 2505.19804"],
+ ["rule-as-code",4,"Drafting regulation as machine-readable code from inception.","arXiv 2505.19804; OECD"],
+ ["RegTech",4,"Software automating compliance, reporting, risk.","FCA usage"],
+ ["DORA",4,"EU Digital Operational Resilience Act for financial IT.","Reg (EU) 2022/2554"],
+ ["regulatory rule translation",4,"Converting legal text into deterministic code.","arXiv 2505.19804"],
+ ["mixed-frequency forecasting",4,"Modelling data captured at different intervals.","Macro-aware, arXiv 2606.00624"],
+ ["hierarchical mixed-frequency attention",4,"Attention weighting sequences across cadences.","arXiv 2606.00624"],
+ ["MIDAS",4,"Mixed Data Sampling regression for mixed frequencies.","Ghysels et al. 2004"],
+ ["model drift",4,"Decay of accuracy as conditions diverge from training.","arXiv 2606.00624"],
+ ["regime shift",4,"Persistent change in a series' distribution.","arXiv 2606.00624"],
+ ["memory poisoning",5,"Injecting malicious data into agent memory to corrupt decisions.","OWASP GenAI"],
+ ["indirect prompt injection",5,"Untrusted content carrying hidden instructions hijacks the agent.","Greshake et al. 2023"],
+ ["information-flow control",5,"Architecture restricting data movement across domains.","IFC literature"],
+ ["origin-bound authority",5,"Tool authorization bound to the verified request source.","agent-security literature"],
+ ["Sybil resistance",5,"Defence against many fake identities gaining influence.","Douceur 2002"],
+ ["KYA",5,"Know Your Agent: register/verify/profile agents before deployment.","emerging governance"],
+ ["trace-economic underwriting",5,"Pricing risk from an agent pipeline's audit trails.","insurance feeds"],
+ ["SAE",5,"Sparse Autoencoder: decomposes activations into features.","Bricken et al. 2023"],
+ ["superposition",5,"Network packs more features than neurons via combination.","Elhage et al. 2022"],
+ ["monosemanticity",5,"A neuron/feature maps to one clear concept.","Bricken et al. 2023"],
+ ["polysemanticity",5,"One neuron responds to many unrelated concepts.","Anthropic interp."],
+ ["dictionary learning",5,"Extracting monosemantic features from activations.","Anthropic interp."],
+ ["circuit analysis",5,"Reverse-engineering the pathways driving behaviours.","Elhage et al. 2021"],
+ ["activation patching",5,"Causally editing activations to test feature effects.","interp. literature"],
+ ["ELK",5,"Eliciting Latent Knowledge: extract a model's true knowledge.","Christiano et al. 2021"],
+ ["manifold steering",5,"Nudging activations along concept dimensions in real time.","interp. literature"],
+ ["deceptive alignment",5,"Model appears aligned in training, conceals goals.","Hubinger et al. 2019"],
+ ["MCP",5,"Model Context Protocol: standard linking models to tools/data.","Anthropic"],
+ ["A2A",5,"Agent-to-Agent protocols linking agents autonomously.","Google"],
+ ["neocloud",5,"GPU-optimised cloud infrastructure providers.","industry usage"],
+ ["CoWoS",5,"Chip-on-Wafer-on-Substrate advanced packaging.","TSMC"],
+ ["HBM4",5,"High Bandwidth Memory 4 for AI accelerators.","JEDEC"],
+ ["abliteration",5,"Modifying model weights to remove safety alignments without a full retrain.","Arditi et al. 2024"]
+];
+const E = [
+ ["agentic clearing","clearing function","related"],["agentic clearing","settlement determination","related"],
+ ["clearing function","RAILS","partOf"],["clearing function","per-output reliability score","related"],
+ ["per-output reliability score","RAILS","partOf"],["published reliability record","RAILS","partOf"],
+ ["per-output reliability score","published reliability record","related"],["verification-native clearing","RAILS","related"],
+ ["settlement determination","settlement model","related"],["RAILS","x402","related"],["RAILS","AP2","related"],
+ ["x402","AP2","related"],["x402","mandate protocol","related"],["AP2","mandate protocol","related"],
+ ["graduated human oversight","GAIE","definedBy"],["GAIE","regulatory risk profile","hasPart"],
+ ["GAIE","blast-radius oversight","hasPart"],["GAIE","evidence artifacts","hasPart"],
+ ["graduated human oversight","blast-radius oversight","hasPart"],["graduated human oversight","regulatory risk profile","related"],
+ ["development-pipeline governance","GAIE","partOf"],["development-pipeline governance","evidence artifacts","hasPart"],
+ ["generation-to-deployment lifecycle","development-pipeline governance","related"],["evidence artifacts","published reliability record","related"],
+ ["agent-as-judge","GAIE","related"],["agent-as-judge","AML","related"],["agent-as-judge","deceptive alignment","related"],
+ ["reflexivity","participative function","hasPart"],["reflexivity","cognitive function","hasPart"],
+ ["reflexivity","directional forecasting accuracy","related"],["reflexivity","model drift","related"],
+ ["memorization control","reflexivity","related"],["directional forecasting accuracy","Sharpe ratio","related"],
+ ["graduated human oversight","prEN 18283","regulatedBy"],["GAIE","DORA","related"],
+ ["GPAI","GPAI enforcement","hasPart"],["GPAI","GPAI Code of Practice","hasPart"],["GPAI","Article 51","related"],
+ ["GPAI","Article 53","related"],["GPAI","10^25 FLOP threshold","related"],["GPAI enforcement","AI Office","related"],
+ ["GPAI Code of Practice","alternative adequate means","related"],["Article 51","10^25 FLOP threshold","related"],
+ ["prEN 18286","GPAI","related"],["prEN 18228","GPAI","related"],["prEN 18229","GPAI","related"],
+ ["prEN 18282","GPAI","related"],["prEN 18283","GPAI","related"],["prEN 18284","GPAI","related"],
+ ["prEN 18228","model risk","related"],["prEN 18229","indirect prompt injection","related"],["prEN 18282","evidence artifacts","related"],
+ ["SAR","AML","related"],["SAR","FinCEN","related"],["SAR","crime-typology alignment","related"],
+ ["AML","BSA","related"],["AML","FATF","related"],["AML","FCC","broader"],["BSA","FinCEN","related"],["BSA","PPSI","related"],
+ ["AI-privacy guard layer","information-flow control","related"],["crime-typology alignment","AML","related"],
+ ["FCC","sanctions false-positive classifier","hasPart"],["par-value redemption","reserve quality","related"],
+ ["par-value redemption","redemption surge","related"],["reserve quality","broker-dealer intermediation","related"],
+ ["broker-dealer intermediation","hierarchy of money","related"],["hierarchy of money","par-value redemption","related"],
+ ["GENIUS Act","PPSI","regulates"],["PPSI","FinCEN","regulatedBy"],["GENIUS Act","MiCA","related"],["MiCA","RWA","related"],
+ ["real-world asset tokenization","settlement model","hasPart"],["real-world asset tokenization","whitelist transferability","hasPart"],
+ ["real-world asset tokenization","rebasing","hasPart"],["real-world asset tokenization","oracle risk","related"],
+ ["real-world asset tokenization","platform concentration","related"],["RWA","real-world asset tokenization","broader"],
+ ["oracle risk","platform concentration","related"],["redemption surge","stress testing","related"],
+ ["parametric synthetic benchmark","stress testing","related"],["parametric synthetic benchmark","tail risk","related"],
+ ["stress testing","Basel III","related"],["stress testing","model risk","related"],["tail risk","Sharpe ratio","related"],
+ ["model risk","model drift","related"],["regime switch","model drift","related"],["regime switch","mixed-frequency forecasting","related"],
+ ["agentic drug discovery","target identification","hasPart"],["agentic drug discovery","SMILES","related"],
+ ["agentic drug discovery","ChatInvent","related"],["agentic drug discovery","human-in-the-loop discovery","related"],
+ ["agentic drug discovery","Eroom's law","addresses"],["process vs molecule benchmark","agentic drug discovery","related"],
+ ["human-in-the-loop discovery","graduated human oversight","related"],["target identification","reverse translation","related"],
+ ["compliance-as-code","rule-as-code","related"],["compliance-as-code","RegTech","broader"],
+ ["compliance-as-code","regulatory rule translation","related"],["RegTech","DORA","related"],
+ ["mixed-frequency forecasting","hierarchical mixed-frequency attention","hasPart"],["mixed-frequency forecasting","MIDAS","related"],
+ ["mixed-frequency forecasting","model drift","related"],["model drift","regime shift","related"],["regime shift","regime switch","closeMatch"],
+ ["memory poisoning","indirect prompt injection","related"],["memory poisoning","information-flow control","related"],
+ ["indirect prompt injection","origin-bound authority","related"],["information-flow control","indirect prompt injection","mitigates"],
+ ["information-flow control","memory poisoning","mitigates"],["origin-bound authority","indirect prompt injection","mitigates"],
+ ["Sybil resistance","KYA","related"],["KYA","evidence artifacts","related"],["trace-economic underwriting","evidence artifacts","related"],
+ ["trace-economic underwriting","published reliability record","related"],["SAE","superposition","related"],
+ ["SAE","dictionary learning","related"],["SAE","monosemanticity","related"],["superposition","polysemanticity","related"],
+ ["monosemanticity","polysemanticity","opposite"],["dictionary learning","monosemanticity","produces"],
+ ["circuit analysis","activation patching","hasPart"],["circuit analysis","SAE","related"],["manifold steering","SAE","related"],
+ ["manifold steering","activation patching","related"],["ELK","deceptive alignment","related"],["MCP","A2A","related"],
+ ["A2A","AP2","related"],["neocloud","CoWoS","related"],["neocloud","HBM4","related"],["CoWoS","HBM4","related"],
+ ["abliteration","superposition","related"]
+];
+const defs={}, secOf={};
+const nodes = new vis.DataSet(N.map(function(n){
+  defs[n[0]]={def:n[2],src:n[3]}; secOf[n[0]]=n[1];
+  return {id:n[0],label:n[0],group:n[1],
+    color:{background:groups[n[1]].color,border:"#0b0d11",
+      highlight:{background:groups[n[1]].color,border:"#fff"}},
+    font:{color:"#0b0d11",size:13,face:"Segoe UI"},shape:"dot",size:14};
+}));
+const edges = new vis.DataSet(E.map(function(e,i){
+  var dir = ["partOf","hasPart","regulates","regulatedBy","mitigates","produces","definedBy","broader","addresses"].indexOf(e[2])>=0;
+  return {id:i,from:e[0],to:e[1],label:e[2],
+    arrows:dir?"to":undefined,
+    color:{color:"#3a4150",highlight:"#aab2c2"},
+    font:{color:"#7c8696",size:9,strokeWidth:0,align:"middle"},
+    smooth:{type:"continuous"},length:160};
+}));
+const secNames={1:"Agentic commerce, oversight & reflexivity",2:"EU regulatory frameworks",3:"Financial crime, stablecoin & tokenization",4:"Quant, biotech & applied coding",5:"Security, safety & interpretability"};
+const container=document.getElementById("net");
+const network=new vis.Network(container,{nodes:nodes,edges:edges},{
+  physics:{barnesHut:{gravitationalConstant:-8000,springLength:150,springConstant:0.03,damping:0.4},stabilization:{iterations:250}},
+  interaction:{hover:true,tooltipDelay:120},
+  nodes:{borderWidth:1.5}
+});
+function relationsFor(id){
+  var out=[];
+  E.forEach(function(e){
+    if(e[0]===id) out.push({rel:e[2],other:e[1],dir:"→"});
+    else if(e[1]===id) out.push({rel:e[2],other:e[0],dir:"←"});
+  });
+  return out;
+}
+function show(id){
+  var d=defs[id]; if(!d) return;
+  var rels=relationsFor(id).map(function(r){
+    return '<div class="rel"><b>'+r.rel+' '+r.dir+'</b> <span class="pill" onclick="show(\''+r.other.replace(/'/g,"\\'")+'\');network.selectNodes([\''+r.other.replace(/'/g,"\\'")+'\']);network.focus(\''+r.other.replace(/'/g,"\\'")+'\',{scale:1.1,animation:true});">'+r.other+'</span></div>';
+  }).join("");
+  document.getElementById("detail").innerHTML=
+    '<div class="term">'+id+'</div>'+
+    '<div class="sec">'+secNames[secOf[id]]+'</div>'+
+    '<div class="def">'+d.def+'</div>'+
+    '<div class="lbl">Source</div><div class="src">'+d.src+'</div>'+
+    '<div class="lbl">Relations</div>'+(rels||'<div class="rel" style="color:#9aa3b2">—</div>');
+}
+network.on("click",function(p){ if(p.nodes.length) show(p.nodes[0]); });
+function doFilter(q){
+  q=q.trim().toLowerCase();
+  nodes.forEach(function(n){
+    var hit = !q || n.id.toLowerCase().indexOf(q)>=0;
+    nodes.update({id:n.id,opacity:hit?1:0.12,font:{color:hit?"#0b0d11":"rgba(11,13,17,0.2)"}});
+  });
+}
+network.once("stabilizationIterationsDone",function(){ network.setOptions({physics:false}); });
+</script>
+</body>
+</html>
