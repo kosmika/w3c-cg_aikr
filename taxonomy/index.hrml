@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI KR CG — Agentic AI Knowledge Domains (Category Map)</title>
+<style>
+  :root { --w3c-blue:#005a9c; --w3c-line:#c3cedb; --w3c-head:#eaf1f8; --w3c-alt:#f6f9fc; }
+  body { font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif; line-height:1.55; color:#1a1a1a; max-width:66em; margin:0 auto; padding:1.6em 1.2em; background:#fff; }
+  a { color:var(--w3c-blue); text-decoration:none; } a:hover { text-decoration:underline; }
+  h1 { font-size:1.5em; margin:0 0 .15em; }
+  h2 { color:var(--w3c-blue); font-size:1.12em; margin:1.4em 0 .4em; }
+  .sub { color:#5a6570; font-size:.92em; margin:.1em 0 .8em; }
+  .wd { background:#fff6d9; border:1px solid #e6d28a; padding:2px 8px; border-radius:4px; font-size:.82em; font-weight:600; }
+  .provisional { background:#fdecea; border:1px solid #e6a59c; border-left:5px solid #c0392b; padding:.7em .95em; border-radius:6px; margin:.9em 0; font-size:.92em; }
+  .provisional b { color:#a5281b; }
+  .contribute { background:#f1f7ec; border:1px solid #bcd9ab; border-left:5px solid #3f8f2e; padding:.7em .95em; border-radius:6px; margin:.9em 0; font-size:.94em; }
+  .contribute b { color:#2f6f22; }
+  nav.toc { background:var(--w3c-alt); border:1px solid var(--w3c-line); border-radius:6px; padding:.6em .9em .7em; font-size:.9em; margin:.6em 0 1.1em; }
+  nav.toc b { color:var(--w3c-blue); }
+  nav.toc ol { margin:.35em 0 0; padding-left:1.4em; } nav.toc li { margin:.12em 0; }
+  table.cat { border-collapse:collapse; width:100%; font-size:.89em; margin-top:.3em; }
+  table.cat th, table.cat td { border:1px solid var(--w3c-line); padding:7px 10px; vertical-align:top; text-align:left; }
+  table.cat th { background:var(--w3c-head); color:var(--w3c-blue); }
+  table.cat tr:nth-child(even) td { background:var(--w3c-alt); }
+  table.cat td.n { font-weight:700; color:var(--w3c-blue); text-align:center; width:1.6em; }
+  table.cat td.name { font-weight:600; }
+  .terms a { white-space:nowrap; }
+  sup a { font-size:.7em; text-decoration:none; }
+  .tc { color:#a5281b; font-style:italic; } /* to-confirm */
+  ol.fn { font-size:.85em; color:#33414d; padding-left:1.3em; }
+  ol.fn li { margin:.3em 0; }
+  .note { color:#5a6570; font-size:.86em; margin-top:1.2em; border-top:1px solid var(--w3c-line); padding-top:.7em; }
+</style>
+</head>
+<body>
+
+<h1>Agentic AI Knowledge Domains — Category Map</h1>
+<p class="sub"><span class="wd">DRAFT · June 2026</span> &nbsp; W3C AI Knowledge Representation Community Group (AI&nbsp;KR&nbsp;CG)</p>
+
+<div class="contribute">
+  <b>Invitation to contribute.</b> You are invited to review these categories, propose changes, and discuss them on the public mailing list of the AI&nbsp;KR&nbsp;CG: <b>public-aikr@w3.org</b> — archives at <a href="https://lists.w3.org/Archives/Public/public-aikr/">lists.w3.org/Archives/Public/public-aikr/</a>. Anyone may read or write to this list.
+</div>
+
+<div class="provisional">
+  <b>Provisional — to be confirmed and maintained.</b> The agentic-AI environment is changing rapidly. Every term, classification, and link in this map is <b>provisional</b> and must be verified and kept current to remain useful. This is a living draft, not a settled reference. Entries whose source is not yet confirmed are marked <span class="tc">to&nbsp;confirm</span>.
+</div>
+
+<nav class="toc">
+  <b>Contents</b>
+  <ol>
+    <li><a href="#how">How these categories were identified</a></li>
+    <li><a href="#use">How to use this map</a></li>
+    <li><a href="#cats">The eight categories</a>
+      <ol style="list-style:lower-alpha">
+        <li><a href="#c1">Agent types &amp; autonomy</a></li>
+        <li><a href="#c2">Cognition &amp; capability</a></li>
+        <li><a href="#c3">Interaction, communication &amp; identity</a></li>
+        <li><a href="#c4">Commerce &amp; settlement</a></li>
+        <li><a href="#c5">Oversight, safety &amp; interpretability</a></li>
+        <li><a href="#c6">Regulation &amp; governance</a></li>
+        <li><a href="#c7">Agentic standards &amp; standards bodies</a></li>
+        <li><a href="#c8">Applied domains</a></li>
+      </ol>
+    </li>
+    <li><a href="#fn">Notes &amp; disambiguations</a></li>
+  </ol>
+</nav>
+
+<h2 id="how">1. How these categories were identified</h2>
+<p>The categories summarise terms, standards, and standards bodies distilled from resources describing the agentic-AI landscape (see also the <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">Vocabulary</a> and the Standards landscape), and are open for review; they were derived by reconciling the group's six-dimension agent ontology (<i>what an agent is</i>) with the five-section vocabulary of the surrounding ecosystem, plus an eighth category for applied, feed-derived material.</p>
+
+<h2 id="use">2. How to use this map</h2>
+<p>This is the <b>top-level knowledge domain</b> for the repository's agentic-AI content. The two contributable files — the <b>Vocabulary</b> and the <b>Standards inventory</b> — are organised under these headings. All other repository files are <b>references</b>. Each term below links to its source: an external live resource where one exists, or inward to the group's own <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">vocabulary</a> where the AI&nbsp;KR&nbsp;CG is itself the source.</p>
+
+<h2 id="cats">3. The eight categories</h2>
+<table class="cat">
+  <thead><tr><th>#</th><th>Category</th><th>Scope</th><th>Example terms (each linked to source)</th></tr></thead>
+  <tbody>
+    <tr id="c1"><td class="n">1</td><td class="name">Agent types &amp; autonomy</td><td>Kinds of agent and their degree of independence.</td>
+      <td class="terms"><a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">ReactiveAgent</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">DeliberativeAgent</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">LearningAgent</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">AutonomousGoalSeekingAgent</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">AssistantAgent</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">AnalyticalAgent</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">CreativeAgent</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">TaskAgent</a></td></tr>
+    <tr id="c2"><td class="n">2</td><td class="name">Cognition &amp; capability</td><td>What an agent can do internally, plus its form and reach.</td>
+      <td class="terms"><a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">Perception</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">Planning</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">Reasoning</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">Learning</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">Memory</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">embodiment</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">operational scope</a></td></tr>
+    <tr id="c3"><td class="n">3</td><td class="name">Interaction, communication &amp; identity</td><td>How agents coordinate, message, and are identified.</td>
+      <td class="terms"><a href="https://a2a-protocol.org/">A2A (Agent2Agent)</a>, <a href="https://modelcontextprotocol.io/">MCP (Model Context Protocol)</a>, <a href="https://agntcy.org/">ACP (Agent Communication Protocol)</a><sup><a href="#f-acp">[a]</a></sup>, <a href="https://w3c-cg.github.io/ai-agent-protocol/">ANP (Agent Network Protocol)</a>, <a href="https://agntcy.org/">OASF (Open Agent Schema Framework)</a>, <span class="tc">NANDA<sup><a href="#f-nanda">[b]</a></sup></span>, <a href="https://www.w3.org/TR/did-1.1/">DID (Decentralized Identifiers)</a>, <a href="https://www.w3.org/TR/vc-data-model-2.0/">Verifiable Credentials</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">human-in-the-loop</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">delegation</a></td></tr>
+    <tr id="c4"><td class="n">4</td><td class="name">Commerce &amp; settlement</td><td>How agents transact and how value clears.</td>
+      <td class="terms"><a href="https://www.coinbase.com/developer-platform/discover/launches/google_x402">x402</a>, <a href="https://agentpaymentsprotocol.info/">AP2 (Agent Payments Protocol)</a>, <span class="tc">ACP (Agentic Commerce Protocol)<sup><a href="#f-acp">[a]</a></sup></span>, <a href="https://eips.ethereum.org/EIPS/eip-8004">ERC-8004 (Trustless Agents)</a><sup><a href="#f-erc">[c]</a></sup>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">agentic clearing</a><sup><a href="#f-rails">[d]</a></sup>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">settlement determination</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">stablecoin</a></td></tr>
+    <tr id="c5"><td class="n">5</td><td class="name">Oversight, safety &amp; interpretability</td><td>How agent action is reviewed, constrained, and understood.</td>
+      <td class="terms"><a href="https://genai.owasp.org/initiatives/agentic-security-initiative/">OWASP Agentic Security Initiative</a>, <a href="https://genai.owasp.org/">OWASP Top 10 for Agentic Applications</a>, <a href="https://cloudsecurityalliance.org/">CSA MAESTRO</a><sup><a href="#f-maestro">[e]</a></sup>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">graduated oversight (GAIE)</a><sup><a href="#f-gaie">[f]</a></sup>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">agent-as-judge</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">interpretability</a></td></tr>
+    <tr id="c6"><td class="n">6</td><td class="name">Regulation &amp; governance</td><td>The legal and policy frameworks that bind agents.</td>
+      <td class="terms"><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">EU AI Act / GPAI</a><sup><a href="#f-gpai">[g]</a></sup>, <a href="https://eur-lex.europa.eu/eli/reg/2022/2554/oj">DORA</a><sup><a href="#f-dora">[h]</a></sup>, <span class="tc">GENIUS Act<sup><a href="#f-genius">[i]</a></sup></span>, <a href="https://www.nist.gov/">NIST CAISI AI Agent Standards Initiative</a><sup><a href="#f-nist">[j]</a></sup>, <span class="tc">IMDA Model AI Governance Framework for Agentic AI<sup><a href="#f-imda">[k]</a></sup></span>, <span class="tc">Five Eyes joint guidance<sup><a href="#f-fiveeyes">[l]</a></sup></span></td></tr>
+    <tr id="c7"><td class="n">7</td><td class="name">Agentic standards &amp; standards bodies</td><td>The agentic-AI standards and the organisations that maintain them (general semantic-web standards excluded).</td>
+      <td class="terms"><a href="https://www.w3.org/community/aikr/">W3C AI&nbsp;KR CG</a>, <a href="https://w3c-cg.github.io/ai-agent-protocol/">W3C AI Agent Protocol CG</a>, <span class="tc">W3C AI Agent Memory Interoperability CG<sup><a href="#f-memcg">[m]</a></sup></span>, <a href="https://www.linuxfoundation.org/">Linux Foundation Agentic AI Foundation</a><sup><a href="#f-aaif">[n]</a></sup>, <a href="https://agntcy.org/">AGNTCY collective</a>, <a href="https://c2pa.org/">C2PA (content provenance)</a>, <a href="https://www.cencenelec.eu/areas-of-work/cen-cenelec-topics/artificial-intelligence/">CEN-CENELEC JTC 21</a></td></tr>
+    <tr id="c8"><td class="n">8</td><td class="name">Applied domains</td><td>Feed-derived material where agents are applied to a field.</td>
+      <td class="terms"><a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">quantitative forecasting</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">reflexivity</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">Sharpe ratio</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">biotech</a>, <a href="https://w3c-cg.github.io/aikr/junevocabwalkthru/">applied coding</a></td></tr>
+  </tbody>
+</table>
+
+<h2 id="fn">4. Notes &amp; disambiguations</h2>
+<ol class="fn">
+  <li id="f-acp"><b>[a] "ACP" is overloaded — three distinct, current efforts.</b> <i>Agent Communication Protocol</i> (IBM Research / AGNTCY collective, REST-native), <i>Agent Connect Protocol</i> (Cisco / AGNTCY), and <i>Agentic Commerce Protocol</i> (Stripe + OpenAI). Never use bare "ACP"; always qualify.</li>
+  <li id="f-nanda"><b>[b] NANDA</b> — Networked AI Agents in a Decentralized Architecture (MIT Media Lab); DID-based agent discovery/registry. Canonical URL <span class="tc">to confirm</span>.</li>
+  <li id="f-erc"><b>[c] ERC-8004</b> — "Trustless Agents" Ethereum proposal for on-chain agent identity/reputation; EIP status <span class="tc">to confirm</span>.</li>
+  <li id="f-rails"><b>[d] RAILS</b> — source framework for the clearing/settlement terms; acronym expansion <span class="tc">unconfirmed</span> pending source-paper verification.</li>
+  <li id="f-maestro"><b>[e] MAESTRO</b> — Multi-Agent Environment, Security, Threat, Risk &amp; Outcome; a seven-layer agentic threat model (Cloud Security Alliance).</li>
+  <li id="f-gaie"><b>[f] GAIE</b> — source framework for graduated oversight; acronym expansion <span class="tc">unconfirmed</span> pending source-paper verification.</li>
+  <li id="f-gpai"><b>[g] GPAI</b> here = General-Purpose AI (EU AI Act, Regulation (EU) 2024/1689); <i>not</i> the Global Partnership on AI.</li>
+  <li id="f-dora"><b>[h] DORA</b> here = Digital Operational Resilience Act (Regulation (EU) 2022/2554, financial sector); <i>not</i> DevOps Research &amp; Assessment.</li>
+  <li id="f-genius"><b>[i] GENIUS Act</b> — US stablecoin statute. Exact citation/URL <span class="tc">to confirm</span>.</li>
+  <li id="f-nist"><b>[j] NIST CAISI</b> — Center for AI Standards and Innovation; AI Agent Standards Initiative launched 17 Feb 2026. Exact programme URL <span class="tc">to confirm</span>.</li>
+  <li id="f-imda"><b>[k] IMDA</b> — Singapore Infocomm Media Development Authority, Model AI Governance Framework for Agentic AI. URL <span class="tc">to confirm</span>.</li>
+  <li id="f-fiveeyes"><b>[l] Five Eyes joint guidance</b> (May 2026) on secure agentic-AI deployment. Canonical source <span class="tc">to confirm</span>.</li>
+  <li id="f-memcg"><b>[m] W3C AI Agent Memory Interoperability CG</b> — proposed 18 May 2026. Group URL <span class="tc">to confirm</span>.</li>
+  <li id="f-aaif"><b>[n] Linux Foundation Agentic AI Foundation (AAIF)</b> — now stewards both MCP and A2A. Dedicated programme URL <span class="tc">to confirm</span>.</li>
+</ol>
+
+<p class="note">Files structured by this map: the <b>Vocabulary</b> and the <b>Standards inventory</b>. All other repository files are references. Status: DRAFT — provisional and subject to ongoing maintenance. License: CC BY 4.0.</p>
+
+</body>
+</html>
