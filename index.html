@@ -14,7 +14,6 @@
     .head a { color: #005a9c; }
     .intro { background: #f0f4fa; border-left: 4px solid #005a9c; padding: 0.8em 1.2em; margin: 1.5em 0 2em; font-size: 0.95em; }
     h2 { border-bottom: 1px solid #005a9c; color: #005a9c; padding-bottom: 0.25em; margin-top: 2em; }
-    h3 { color: #1a3a5c; margin: 1.5em 0 0.5em; font-size: 1em; }
     .deliverables { list-style: none; padding: 0; margin: 0.5em 0; }
     .deliverables li { border: 1px solid #ccd6e8; border-radius: 4px; padding: 0.85em 1.2em; margin-bottom: 0.7em; background: #fafcff; }
     .deliverables li:hover { background: #eef3fb; }
@@ -25,10 +24,13 @@
     .tag-draft { background: #fff3cd; color: #7a5000; border: 1px solid #e6b800; }
     .tag-editor { background: #d1ecf1; color: #0c5460; border: 1px solid #17a2b8; }
     .tag-review { background: #f8d7da; color: #842029; border: 1px solid #dc3545; }
+    .tag-super { background: #e2e3e5; color: #41464b; border: 1px solid #adb5bd; }
     .doc-meta { font-size: 0.82em; color: #555; margin-top: 0.3em; }
     .doc-desc { font-size: 0.87em; color: #444; margin-top: 0.4em; }
-    .source-link { font-size: 0.78em; color: #888; margin-top: 0.3em; }
-    .source-link a { color: #555; }
+    .refs { list-style: none; padding: 0; margin: 0.5em 0; }
+    .refs li { padding: 0.55em 0; border-bottom: 1px solid #eee; font-size: 0.9em; }
+    .refs .doc-title { font-size: 0.98em; }
+    .refs .doc-desc { margin-top: 0.2em; }
     .starthere { background: #fff8e8; border: 2px solid #e6b800; border-radius: 6px; padding: 0.6em 1.4em 1.2em; margin: 1.5em 0 2.5em; }
     .starthere h2 { border: none; color: #7a5000; margin-top: 0.6em; }
     .starthere .lead { font-size: 0.9em; color: #6b5300; margin: 0.2em 0 1em; }
@@ -56,200 +58,118 @@
 </div>
 
 <div class="intro">
-  <p>The <strong>W3C AI Knowledge Representation Community Group (AI KR CG)</strong> is work in progress. Its focus is shifting as the agentic-AI ecosystem and its protocols and standards evolve rapidly.
-    The group&rsquo;s roster spans around 100 participants across 35 organisations; as in any community group, active contribution comes from a smaller subset. AI KR CG curates an open map of agentic-AI community efforts and produces exploratory drafts on vocabularies, ontologies, and technical notes for representing knowledge in AI systems, with an interest in agent interoperability, semantic alignment, and possible future standardization across the Web ecosystem.</p>
-  <p>Documents listed below are Community Group drafts unless otherwise noted. They are not W3C Standards and are not on the W3C Standards Track. Participation in reviewing and improving the output is highly welcome.</p>
+  <p>This repository holds <strong>shared notes and memos</strong> aimed at informing AI&nbsp;KR&nbsp;CG participants about the state of the art, through the <strong>representation and definition of key terms and concepts</strong> in the fast-moving agentic-AI landscape.</p>
+  <p>The content of these files is <strong>open for discussion, evaluation, and refinement</strong>. Because the space is emergent and the work is iterative, some of the older files may contain duplicate, missing, or redundant information that has since been merged into the newer files below. Nothing here is a W3C Standard or on the W3C Standards Track.</p>
+  <p>Participants are welcome to <a href="https://www.w3.org/community/aikr/">contact the chair</a>, discuss via the <a href="https://lists.w3.org/Archives/Public/public-aikr/">public mailing list</a>, or suggest how to develop these resources further.</p>
 </div>
 
 <div class="starthere">
-  <h2>Start here &mdash; read these first</h2>
-  <p class="lead">New to the repository? Please help to build it! These four orientation documents map and summarise the work below &mdash; what the CG is doing, how the notes relate to one another, and how they sit against neighbouring W3C, IETF and industry work. They are currently <strong>for community review</strong>.</p>
+  <h2>Start here &mdash; the core resources</h2>
+  <p class="lead">Three linked working drafts form the current spine of the group&rsquo;s agentic-AI work. They share one structure &mdash; eight knowledge domains &mdash; and are the documents most in need of your review and contribution. All are <strong>working drafts, provisional and open for review</strong>.</p>
   <ul class="deliverables">
     <li>
       <div class="doc-title">
-        <a href="https://w3c-cg.github.io/aikr/summary/">Summary &amp; Repository Map</a>
+        <a href="https://w3c-cg.github.io/aikr/taxonomy/">Agentic AI Knowledge Domains &mdash; Taxonomy</a>
         <span class="tag tag-review">For Review</span>
       </div>
-      <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
-      <div class="doc-desc">A representative overview: a trimmed-ReSpec summary of the group&rsquo;s purpose, the AIAO and interoperability-framework scaffold, and how the documents in this repository fit together.</div>
+      <div class="doc-meta">W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
+      <div class="doc-desc">The top-level category map: eight knowledge domains under which the vocabulary and the standards inventory are organised. Each term links to a current source; entries are provisional.</div>
     </li>
     <li>
       <div class="doc-title">
-        <a href="https://w3c-cg.github.io/aikr/map/">Repository File Map (interactive)</a>
+        <a href="https://w3c-cg.github.io/aikr/VOCAB29June/">Agentic AI Vocabulary</a>
         <span class="tag tag-review">For Review</span>
       </div>
-      <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
-      <div class="doc-desc">An interactive graph of the repository documents and how each connects to neighbouring W3C and IETF standards, converging on interoperability and a trust layer.</div>
+      <div class="doc-meta">W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
+      <div class="doc-desc">A controlled vocabulary of ~150 agentic-AI terms with proposed definitions, sources, and SKOS-style relations, organised by the eight taxonomy categories, plus an acronym quick-reference.</div>
     </li>
     <li>
       <div class="doc-title">
-        <a href="https://w3c-cg.github.io/aikr/sdo-inventory/">Agentic AI Standards Inventory</a>
+        <a href="https://w3c-cg.github.io/aikr/standards/">Agentic AI Standards Inventory &amp; Gap Analysis</a>
         <span class="tag tag-review">For Review</span>
       </div>
-      <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
-      <div class="doc-desc">A working inventory of W3C and related agentic-AI standards efforts, each with its standard, core elements, an openness read (open / gated), and KR / AIAO alignment. Community verification is welcome.</div>
-    </li>
-    <li>
-      <div class="doc-title">
-        <a href="https://w3c-cg.github.io/aikr/landscape/">Standards Landscape Map (interactive)</a>
-        <span class="tag tag-review">For Review</span>
-      </div>
-      <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
-      <div class="doc-desc">An interactive board placing each effort by framework layer (representation &rarr; trust) and openness (open / gated), making the shape of the landscape visible at a glance.</div>
+      <div class="doc-meta">W3C AI KR CG &nbsp;&bull;&nbsp; Working draft</div>
+      <div class="doc-desc">An inventory of current agentic-AI standards and efforts with a per-domain coverage/gap assessment and recommended work items, organised by the eight taxonomy categories.</div>
     </li>
   </ul>
 </div>
 
-<h2>Deliverables</h2>
-
-<h3>Agent Ontology Alignment</h3>
-<ul class="deliverables">
+<h2>Repository contents &mdash; reference material</h2>
+<p style="font-size:0.9em;color:#555;margin:0.3em 0 1em;">Earlier and supporting notes. Several of these fed into the three core resources above; some information they contain has since been merged or superseded. Retained for reference and history.</p>
+<ul class="refs">
   <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/agonalign/">Agent Ontology Alignment: IDL Agent Ontology and HMAS Ontology Stack</a>
-      <span class="tag tag-draft">CG-Draft</span>
-    </div>
-    <div class="doc-meta">Editor: Paola Di Maio &nbsp;&bull;&nbsp; 8 March 2026</div>
-    <div class="doc-desc">A proposed alignment &mdash; not a new ontology &mdash; offering a use-case mapping between the IDL Agent Ontology and the HMAS Core, Interaction, and Regulation ontologies, with semantic correspondences (subClassOf, equivalentClass, property mappings) intended to support agent-system interoperability. The IDL / AgentIDL Agent Ontology is a deliverable of the W3C Semantic Agent Communication CG; the HMAS ontologies are the work of the HyperAgents Project. The contribution here is the alignment between them.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/agonalign/index.html">github.com/w3c-cg/aikr/blob/main/agonalign/index.html</a></div>
-  </li>
-</ul>
-
-<h3>Voice AI</h3>
-<ul class="deliverables">
-  <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/voiceAI/voice-ai-standards-respec.html">Voice AI Standards -- ReSpec Draft</a>
-      <span class="tag tag-editor">Editor's Draft</span>
-    </div>
-    <div class="doc-meta">Editor: Paola Di Maio &nbsp;&bull;&nbsp; In progress</div>
-    <div class="doc-desc">Requirements and design principles for voice AI systems, with analysis of documented deployment failures and a proposed configurable framework for voice AI user experience.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/voiceAI/voice-ai-standards-respec.html">github.com/w3c-cg/aikr/blob/main/voiceAI/voice-ai-standards-respec.html</a></div>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/summary/">Summary &amp; Repository Map</a> <span class="tag tag-review">For Review</span></div>
+    <div class="doc-desc">A ReSpec overview of the group&rsquo;s purpose and how the documents in this repository fit together.</div>
   </li>
   <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/voiceAI/voice-ai-standards-withnewtypes.html">Voice AI Standards -- With New Types</a>
-      <span class="tag tag-editor">Editor's Draft</span>
-    </div>
-    <div class="doc-meta">Editor: Paola Di Maio &nbsp;&bull;&nbsp; In progress</div>
-    <div class="doc-desc">Extended version incorporating new voice AI interaction type classifications. Developed in the context of the W3C Smart Voice Agents Workshop (February 2026).</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/voiceAI/voice-ai-standards-withnewtypes.html">github.com/w3c-cg/aikr/blob/main/voiceAI/voice-ai-standards-withnewtypes.html</a></div>
-  </li>
-</ul>
-
-<h3>Notes on WebMCP</h3>
-<ul class="deliverables">
-  <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/webMCP/webmcp-technical-notes.html">WebMCP Technical Notes</a>
-      <span class="tag tag-editor">Editor's Draft</span>
-    </div>
-    <div class="doc-meta">Editor: Paola Di Maio &nbsp;&bull;&nbsp; In progress</div>
-    <div class="doc-desc">Technical notes discussing the proposed WebMCP browser API and its relationship to W3C Web Machine Learning incubation work, covering security considerations, model cards, interoperability requirements, and quality infrastructure for MCP-compliant systems.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/webMCP/webmcp-technical-notes.html">webmcp-technical-notes</a></div>
-  </li>
-</ul>
-
-<h3>Guide to Solid</h3>
-<ul class="deliverables">
-  <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/Solid/solidguide.html">Guide to Solid</a>
-      <span class="tag tag-editor">Editor's Draft</span>
-    </div>
-    <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; In progress</div>
-    <div class="doc-desc">Solid made simple: a practical introduction to the W3C Solid protocol for content creators, AI agent developers, and users of AI agents. Covers Pod setup, data creation, access control, audit logging, and consent management.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/Solid/solidguide.html">github.com/w3c-cg/aikr/blob/main/Solid/solidguide.html</a></div>
-  </li>
-</ul>
-
-<h3>Conduit Feedback DRAFT</h3>
-<ul class="deliverables">
-  <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/conduit/index.html">Conduit Feedback DRAFT</a>
-      <span class="tag tag-editor">Editor's Draft</span>
-    </div>
-    <div class="doc-meta">Editor: W3C AI KR CG &nbsp;&bull;&nbsp; In progress</div>
-    <div class="doc-desc">Feedback to Ben Stone. Posted to AI Agents Protocols CG 17 March 2026, public-agentprotocol@w3.org.</div>
-    <div class="source-link">Source: <a href="https://w3c-cg.github.io/aikr/conduit/index.html">w3c-cg.github.io/aikr/conduit/index.html</a></div>
-  </li>
-</ul>
-
-<h3>Digital Forensics Model Card Specification</h3>
-<ul class="deliverables">
-  <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/DFMC/">Digital Forensics Model Card Specification</a>
-      <span class="tag tag-draft">CG-Draft</span>
-    </div>
-    <div class="doc-meta">Editor: Paola Di Maio &nbsp;&bull;&nbsp; April 2026</div>
-    <div class="doc-desc">A model card framework for AI/ML systems used in digital and web forensics, including a JSON schema, controlled vocabularies, and a <a href="https://huggingface.co/spaces/STARBORN/forensics_mc_generator">reference implementation</a>.</div>
-    <div class="source-link">Source: <a href="https://w3c-cg.github.io/aikr/DFMC/">w3c-cg.github.io/aikr/DFMC/</a></div>
-  </li>
-</ul>
-
-<h2>Technical Notes &amp; Primers</h2>
-<ul class="deliverables">
-  <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/ecommerce/">Open Standard Vocabularies for E-commerce and the Agentic Interoperability Gap</a>
-      <span class="tag tag-review">FOR REVIEW</span>
-    </div>
-    <div class="doc-meta">Editor: Paola Di Maio &nbsp;&bull;&nbsp; New &mdash; June 2026</div>
-    <div class="doc-desc">An overview of the open e-commerce vocabulary stack &mdash; schema.org, GoodRelations, the GS1 Web Vocabulary and GS1 Digital Link, JSON-LD and UN/CEFACT &mdash; and an analysis of what it lacks for autonomous AI agents: machine-actionable affordances, verifiability, delegated authority, and creator attribution. Complements the A2WF efforts inventory; prepared as input to the W3C/GS1 <em>E-commerce for Humans and AI Agents</em> workshop.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/ecommerce/index.html">github.com/w3c-cg/aikr/blob/main/ecommerce/index.html</a></div>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/map/">Repository File Map (interactive)</a> <span class="tag tag-review">For Review</span></div>
+    <div class="doc-desc">An interactive graph of the repository documents and their links to neighbouring W3C and IETF standards.</div>
   </li>
   <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/TNAI/machine-consumable-specs.html">Guidelines for Writing Machine-Consumable Specifications</a>
-      <span class="tag tag-editor">Technical Note</span>
-    </div>
-    <div class="doc-meta">Editor: W3C AI KR CG</div>
-    <div class="doc-desc">Guidance on authoring specifications that are readable and consumable by AI agents and automated tools.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/TNAI/machine-consumable-specs.html">github.com/w3c-cg/aikr/blob/main/TNAI/machine-consumable-specs.html</a></div>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/landscape/">Standards Landscape Map (interactive)</a> <span class="tag tag-review">For Review</span></div>
+    <div class="doc-desc">An interactive board placing each effort by framework layer (representation &rarr; trust) and openness.</div>
   </li>
   <li>
-    <div class="doc-title">
-      <a href="https://w3c-cg.github.io/aikr/TN-S/sustainability-ai-assistants.html">Accessibility and Sustainability Principles for AI Code Assistants</a>
-      <span class="tag tag-editor">Technical Note</span>
-    </div>
-    <div class="doc-meta">Editor: W3C AI KR CG</div>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/sdo-inventory/">Agentic AI Standards Inventory (earlier)</a> <span class="tag tag-super">Superseded</span></div>
+    <div class="doc-desc">The earlier standards inventory; largely consolidated into the Standards Inventory &amp; Gap Analysis in the core resources above.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/agonalign/">Agent Ontology Alignment: IDL and HMAS</a> <span class="tag tag-draft">CG-Draft</span></div>
+    <div class="doc-desc">A use-case alignment (not a new ontology) between the IDL Agent Ontology and the HMAS ontology stack.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/ecommerce/">Open Standard Vocabularies for E-commerce and the Agentic Interoperability Gap</a> <span class="tag tag-review">For Review</span></div>
+    <div class="doc-desc">The open e-commerce vocabulary stack and what it lacks for autonomous agents; input to the W3C/GS1 workshop.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/DFMC/">Digital Forensics Model Card Specification</a> <span class="tag tag-draft">CG-Draft</span></div>
+    <div class="doc-desc">A model-card framework for AI/ML systems used in digital and web forensics, with a JSON schema and reference implementation.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/webMCP/webmcp-technical-notes.html">WebMCP Technical Notes</a> <span class="tag tag-editor">Editor&rsquo;s Draft</span></div>
+    <div class="doc-desc">Notes on the proposed WebMCP browser API and its relationship to W3C Web Machine Learning incubation work.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/voiceAI/voice-ai-standards-respec.html">Voice AI Standards &mdash; ReSpec Draft</a> <span class="tag tag-editor">Editor&rsquo;s Draft</span></div>
+    <div class="doc-desc">Requirements and design principles for voice AI systems, with analysis of documented deployment failures.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/voiceAI/voice-ai-standards-withnewtypes.html">Voice AI Standards &mdash; With New Types</a> <span class="tag tag-editor">Editor&rsquo;s Draft</span></div>
+    <div class="doc-desc">Extended version with new voice-AI interaction-type classifications; from the W3C Smart Voice Agents Workshop.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/Solid/solidguide.html">Guide to Solid</a> <span class="tag tag-editor">Editor&rsquo;s Draft</span></div>
+    <div class="doc-desc">A practical introduction to the W3C Solid protocol for content creators, AI agent developers, and users.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/conduit/index.html">Conduit Feedback</a> <span class="tag tag-editor">Editor&rsquo;s Draft</span></div>
+    <div class="doc-desc">Feedback posted to the AI Agents Protocols CG (March 2026).</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/TNAI/machine-consumable-specs.html">Guidelines for Writing Machine-Consumable Specifications</a> <span class="tag tag-editor">Technical Note</span></div>
+    <div class="doc-desc">Guidance on authoring specifications readable and consumable by AI agents and automated tools.</div>
+  </li>
+  <li>
+    <div class="doc-title"><a href="https://w3c-cg.github.io/aikr/TN-S/sustainability-ai-assistants.html">Accessibility and Sustainability Principles for AI Code Assistants</a> <span class="tag tag-editor">Technical Note</span></div>
     <div class="doc-desc">Principles for accessibility and sustainability in AI code assistants.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/TN-S/sustainability-ai-assistants.html">github.com/w3c-cg/aikr/blob/main/TN-S/sustainability-ai-assistants.html</a></div>
   </li>
   <li>
-    <div class="doc-title">
-      <a href="https://github.com/w3c-cg/aikr/blob/main/webai/accessibility_principles.md">Community Note: Code Quality Principles for AI-Generated Code</a>
-      <span class="tag tag-draft">Note</span>
-    </div>
-    <div class="doc-meta">Editor: W3C AI KR CG</div>
+    <div class="doc-title"><a href="https://github.com/w3c-cg/aikr/blob/main/webai/accessibility_principles.md">Community Note: Code Quality Principles for AI-Generated Code</a> <span class="tag tag-draft">Note</span></div>
     <div class="doc-desc">Quality and accessibility principles for code generated by AI systems.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/webai/accessibility_principles.md">webai/accessibility_principles.md</a></div>
   </li>
   <li>
-    <div class="doc-title">
-      <a href="https://github.com/w3c-cg/aikr/blob/main/A2WF/intersection.md">Inventory of Efforts Related to A2WF</a>
-      <span class="tag tag-draft">Note</span>
-    </div>
-    <div class="doc-meta">Editor: W3C AI KR CG</div>
+    <div class="doc-title"><a href="https://github.com/w3c-cg/aikr/blob/main/A2WF/intersection.md">Inventory of Efforts Related to A2WF</a> <span class="tag tag-draft">Note</span></div>
     <div class="doc-desc">A survey of efforts intersecting the Agent-to-Web Framework (A2WF).</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/A2WF/intersection.md">A2WF/intersection.md</a></div>
   </li>
   <li>
-    <div class="doc-title">
-      <a href="https://github.com/w3c-cg/aikr/blob/main/robot_text_explainer.md">Understanding robots.txt &mdash; A Primer for the Age of AI Agents</a>
-      <span class="tag tag-draft">Primer</span>
-    </div>
-    <div class="doc-meta">Editor: W3C AI KR CG</div>
+    <div class="doc-title"><a href="https://github.com/w3c-cg/aikr/blob/main/robot_text_explainer.md">Understanding robots.txt &mdash; A Primer for the Age of AI Agents</a> <span class="tag tag-draft">Primer</span></div>
     <div class="doc-desc">An explainer on robots.txt and content-usage signals in the context of AI agents.</div>
-    <div class="source-link">Source: <a href="https://github.com/w3c-cg/aikr/blob/main/robot_text_explainer.md">robot_text_explainer.md</a></div>
   </li>
 </ul>
 
 <div class="contribute">
   <strong>Contributing:</strong>
-  Read the <a href="https://github.com/w3c-cg/aikr/blob/main/CONTRIBUTING.md">contributing guidelines</a> and <a href="https://github.com/w3c-cg/aikr/blob/main/CODE_OF_CONDUCT.md">code of conduct</a> before participating. File issues and pull requests via <a href="https://github.com/w3c-cg/aikr">GitHub</a> or post to the <a href="https://lists.w3.org/Archives/Public/public-aikr/">public mailing list</a>.
+  Read the <a href="https://github.com/w3c-cg/aikr/blob/main/CONTRIBUTING.md">contributing guidelines</a> and <a href="https://github.com/w3c-cg/aikr/blob/main/CODE_OF_CONDUCT.md">code of conduct</a> before participating. File issues and pull requests via <a href="https://github.com/w3c-cg/aikr">GitHub</a>, or post to the <a href="https://lists.w3.org/Archives/Public/public-aikr/">public mailing list</a>.
 </div>
 
 <footer>
