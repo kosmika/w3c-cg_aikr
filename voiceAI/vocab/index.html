@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Voice Agents Vocabulary</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+  <script class="remove">
+    var respecConfig = {
+      specStatus: "CG-DRAFT",
+      shortName: "voice-agents-vocabulary",
+      subtitle: "W3C AI Knowledge Representation Community Group — Draft Community Group Report",
+      publishDate: "2026-06-02",
+      copyrightStart: "2025",
+      editors: [
+        { name: "Paola Di Maio", company: "W3C AI KR CG", companyURL: "https://www.w3.org/community/aikr/" },
+      ],
+      authors: [
+        { name: "W3C AI KR CG Contributors" },
+      ],
+      group: "aikr",
+      github: {
+        repoURL: "https://github.com/w3c-cg/aikr",
+        branch: "main",
+      },
+      latestVersion: null,
+      localBiblio: {
+        "FDBENCH": { title: "Full-Duplex-Bench: A Benchmark to Evaluate Full-duplex Spoken Dialogue Models on Turn-taking Capabilities", href: "https://arxiv.org/abs/2503.04721", publisher: "", date: "2025" },
+        "TAUVOICE": { title: "τ-Voice: Benchmarking Full-Duplex Voice Agents on Real-World Domains", href: "https://arxiv.org/pdf/2603.13686", publisher: "", date: "2026" },
+        "TURNEOT": { title: "Thai Semantic End-of-Turn Detection for Real-Time Voice Agents", href: "https://arxiv.org/pdf/2510.04016", publisher: "", date: "2025" },
+        "IHBENCH": { title: "IHBench: Evaluating Post-Interruption Recovery in Voice Agents with Structured Workflows", href: "https://arxiv.org/pdf/2606.19595", publisher: "", date: "2026" },
+        "ORALVOICE": { title: "Scalable and Personalized Oral Assessments Using Voice AI", href: "https://arxiv.org/html/2603.18221v1", publisher: "", date: "2026" },
+        "WEB-SPEECH-API": { title: "Web Speech API", href: "https://wicg.github.io/speech-api/", publisher: "WICG" },
+        "SSML10": { title: "Speech Synthesis Markup Language (SSML) Version 1.1", href: "https://www.w3.org/TR/speech-synthesis11/", publisher: "W3C" },
+        "VOICEXML21": { title: "Voice Extensible Markup Language (VoiceXML) 2.1", href: "https://www.w3.org/TR/voicexml21/", publisher: "W3C" },
+        "EMMA20": { title: "EMMA: Extensible MultiModal Annotation markup language", href: "https://www.w3.org/TR/emma/", publisher: "W3C" },
+        "MRCPV2": { title: "Media Resource Control Protocol Version 2 (MRCPv2)", href: "https://www.rfc-editor.org/rfc/rfc6787", publisher: "IETF" },
+        "WCAG22": { title: "Web Content Accessibility Guidelines (WCAG) 2.2", href: "https://www.w3.org/TR/WCAG22/", publisher: "W3C" },
+        "SVAREPORT": { title: "W3C Workshop on Smart Voice Agents -- Report", href: "https://www.w3.org/news/2026/w3c-workshop-report-smart-voice-agents/", publisher: "W3C", date: "31 March 2026" }
+      },
+    };
+  </script>
+</head>
+<body>
+
+  <section id="abstract">
+    
+<p>
+This document proposes a baseline vocabulary of terms for agentic voice interaction,
+for contribution to the W3C AI Knowledge Representation Community Group (AI&nbsp;KR&nbsp;CG)
+and, where relevant, the W3C Smart Voice Agents initiative. It is structured under the
+CG's own eight-category Agentic&nbsp;AI Knowledge-Domains taxonomy so that it can be
+merged into the CG's existing 148-term Agentic&nbsp;AI Vocabulary without duplicating it.
+</p>
+
+  </section>
+
+  <section id="sotd">
+    
+<p>
+This is a <strong>DRAFT COMMUNITY REPORT</strong>, open for participants contributions
+on June 2 2026. Contributors can contact the chair or post to the CG list directly to
+suggest edits and amendments.
+</p>
+
+  </section>
+
+  <section id="editors-note" class="informative">
+    <h2>Editorial note on scope and method</h2>
+    <aside class="note" title="Scope and method">
+      
+<p>
+Terms already defined in the CG's <a href="https://w3c-cg.github.io/aikr/VOCAB29June/">Agentic
+AI Vocabulary</a> (e.g. <code>ReactiveAgent</code>, <code>human-in-the-loop</code>,
+<code>MCP</code>) are cross-referenced by relation rather than redefined here.
+Sections 1&ndash;8 below follow the CG's locked
+<a href="https://w3c-cg.github.io/aikr/taxonomy/">Knowledge-Domains taxonomy</a> exactly, in
+category order, so new terms can be merged directly into the corresponding sections of the
+main vocabulary. This draft additionally carries three non-normative appendices, added to
+close specific coverage gaps identified during review:
+</p>
+<ul>
+<li><strong>Appendix A (Implementation-layer vocabulary)</strong> — parsed directly from four
+widely used open-source voice-agent frameworks (<code>livekit/agents</code>,
+<code>TEN-framework/ten-framework</code>, <code>pipecat-ai/pipecat</code>,
+<code>vocodedev/vocode-core</code>). Each definition is a novel restatement aligned
+with — but not copied from — the cited repository's own README.</li>
+<li><strong>Appendix B (Book-sourced design vocabulary)</strong> — terms from the editor's
+unpublished Voice AI book manuscript (working chapters on the "Voice Kit Vision" and the CRUX
+design framework). These are the editor's own original terminology, included for completeness
+of the CG's voice-agent conceptual coverage; they are not yet externally published or
+peer-reviewed, and should be flagged as such on submission.</li>
+<li><strong>Appendix C (Workshop-sourced vocabulary)</strong> — terms drawn from the eight
+cross-cutting issues identified in the official <a
+href="https://www.w3.org/news/2026/w3c-workshop-report-smart-voice-agents/">W3C Workshop on
+Smart Voice Agents report</a> (25&ndash;27 February 2026; published 31 March 2026). This is the
+most authoritative and current external source in this draft and should anchor any near-term CG
+submission.</li>
+</ul>
+
+    </aside>
+  </section>
+
+
+    <section id="agent">
+      <h2>Agent types &amp; autonomy</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>VoiceAgent</td><td>Agent whose primary interaction modality is spoken language, typically combining ASR, an LLM reasoning core, and TTS in a real-time loop.</td><td>AI-KR CG working definition, informed by voice-agent architecture literature</td><td>broader: agent; related: ConversationalAgent</td></tr>
+<tr><td>Full-duplex voice agent</td><td>Voice agent architected to listen and speak concurrently on independent audio streams, enabling natural overlap and immediate barge-in rather than strict turn-by-turn exchange.</td><td>Full-Duplex-Bench [[FDBENCH]]; τ-Voice [[TAUVOICE]]</td><td>broader: VoiceAgent; related: barge-in, turn-taking</td></tr>
+<tr><td>Half-duplex voice agent</td><td>Voice agent that enforces strict alternating turns, only listening after it has finished speaking; simpler to build but less natural under interruption.</td><td>AI-KR CG working definition</td><td>broader: VoiceAgent; contrast: Full-duplex voice agent</td></tr>
+<tr><td>Speech-first agent</td><td>Agent designed with voice as the default and primary interface rather than as a bolt-on channel to a text-based assistant.</td><td>AI-KR CG working definition</td><td>broader: VoiceAgent</td></tr>
+<tr><td>Telephony agent</td><td>Voice agent deployed over PSTN/SIP telephony rather than a browser or app microphone, subject to narrowband audio and carrier-network constraints.</td><td>AI-KR CG working definition</td><td>broader: VoiceAgent; related: MRCP</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="cognition">
+      <h2>Cognition &amp; capability</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>ASR (Automatic Speech Recognition)</td><td>The capability that converts an acoustic speech signal into a text transcript, streamed incrementally in real-time voice agents.</td><td>W3C Web Speech API [[WEB-SPEECH-API]]</td><td>broader: Perception; related: endpointing</td></tr>
+<tr><td>TTS (Text-to-Speech)</td><td>The capability that synthesizes spoken audio from text, typically via a neural vocoder, including prosody and voice-identity control.</td><td>W3C Web Speech API [[WEB-SPEECH-API]]; SSML</td><td>broader: capability; related: SSML, prosody</td></tr>
+<tr><td>VAD (Voice Activity Detection)</td><td>The capability that distinguishes speech from silence or non-speech audio in a stream, gating when ASR and downstream processing engage.</td><td>Silero VAD, cited in [[TURNEOT]]</td><td>broader: Perception; related: endpointing, barge-in</td></tr>
+<tr><td>Endpointing</td><td>The decision process that determines when a user has finished a spoken turn, triggering the agent's response; may be fixed-silence, prosody-based, or semantic/model-based.</td><td>[[TURNEOT]]; Li, Paranjape &amp; Manning (arXiv:2208.03812)</td><td>broader: Cognition &amp;amp; capability; related: VAD, turn-taking</td></tr>
+<tr><td>Barge-in</td><td>The agent capability to detect that a user has begun speaking while the agent's own TTS is playing, and to immediately halt playback and cancel in-flight generation.</td><td>Voice Agent Architecture (Baby, 2026); [[IHBENCH]]</td><td>broader: Interaction, communication &amp;amp; identity; related: endpointing, echo cancellation</td></tr>
+<tr><td>Turn-taking</td><td>The joint mechanism by which a voice agent and a user negotiate who speaks next, including timing of initiation, yielding, and permitted overlap.</td><td>Skantze &amp; Irfan (arXiv:2501.08946); Talking Turns (arXiv:2503.01174)</td><td>broader: Cognition &amp;amp; capability; related: barge-in, endpointing</td></tr>
+<tr><td>Prosody</td><td>The rhythm, stress, pitch, and intonation pattern of synthesized or recognized speech, distinct from its lexical content; a key driver of perceived naturalness.</td><td>AI voice latency and naturalness literature (industry + academic)</td><td>broader: TTS</td></tr>
+<tr><td>Speaker diarization</td><td>The process of partitioning an audio stream by speaker identity ('who spoke when'), used in multi-party voice-agent scenarios.</td><td>General speech-processing literature</td><td>broader: Perception</td></tr>
+<tr><td>Wake-word detection</td><td>A lightweight, always-listening capability that detects a designated trigger phrase to activate full voice-agent processing, balancing responsiveness against privacy and power draw.</td><td>General speech-processing literature</td><td>broader: Perception; related: VAD</td></tr>
+<tr><td>Echo cancellation (AEC)</td><td>Signal-processing capability that removes an agent's own synthesized speech from its microphone input, preventing self-triggered feedback loops during full-duplex operation.</td><td>WebRTC AEC; Voice Agent Architecture (Baby, 2026)</td><td>broader: Cognition &amp;amp; capability; related: barge-in</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="interaction">
+      <h2>Interaction, communication &amp; identity</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>SSML (Speech Synthesis Markup Language)</td><td>A W3C markup vocabulary for controlling pronunciation, prosody, and pacing in synthesized speech output.</td><td>[[SSML10]]</td><td>broader: TTS</td></tr>
+<tr><td>VoiceXML</td><td>A W3C markup language for building interactive telephony-style voice dialogues (menus, prompts, grammars, form-filling).</td><td>[[VOICEXML21]]</td><td>related: MRCP, telephony agent</td></tr>
+<tr><td>EMMA (Extensible MultiModal Annotation)</td><td>A W3C markup format for representing interpretations of user input (including speech) with confidence, timestamps, and alternatives, for exchange between input processors and interaction managers.</td><td>[[EMMA20]]</td><td>related: ASR, VoiceInteractionState</td></tr>
+<tr><td>MRCP (Media Resource Control Protocol)</td><td>A protocol that lets a voice-application server control speech resources (ASR/TTS engines) hosted elsewhere on the network, common in telephony IVR deployments.</td><td>[[MRCPV2]]</td><td>related: telephony agent, VoiceXML</td></tr>
+<tr><td>VoiceInteractionState</td><td>A proposed enumerated state (e.g., idle / listening / thinking / speaking / interrupted) representing where a voice agent currently sits in its interaction cycle.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html)</td><td>broader: state machine; related: VoiceInteractionStateMachine</td></tr>
+<tr><td>VoiceInteractionStateMachine</td><td>A proposed interface exposing the current and permitted-next VoiceInteractionState values, allowing an application to react to and drive voice-agent turn transitions.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html)</td><td>related: VoiceInteractionState, turn-taking</td></tr>
+<tr><td>VoiceContext</td><td>A proposed interface carrying accumulated dialogue/session state (slots, history, user profile) available to a voice agent across turns.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html)</td><td>related: VoiceHistoryEntry</td></tr>
+<tr><td>VoicePlaybackController</td><td>A proposed interface for temporal control (pause, resume, cancel, seek) of in-progress TTS playback, distinct from stopping the underlying audio element.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html)</td><td>related: barge-in</td></tr>
+<tr><td>VoiceSessionRecovery</td><td>A proposed interface and protocol for resuming a voice session after disconnection or interruption without discarding prior context or repeating already-delivered content.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html); [[IHBENCH]]</td><td>related: VoiceHistoryEntry, VoiceContext</td></tr>
+<tr><td>Voice biometrics / speaker verification</td><td>The use of voice-derived features to authenticate or verify the identity of a speaker, distinct from ASR content recognition.</td><td>Sardine 'AI Fraud Vectors' 2026; Fintech Global 2026</td><td>related: liveness detection, voice cloning</td></tr>
+<tr><td>VoiceTask</td><td>A proposed interface representing a single unit of background work (e.g. a lookup, a booking action) that a voice agent has queued for asynchronous execution while the spoken conversation continues.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html); Di Maio Voice AI book manuscript, Ch.4 'Background Processing'</td><td>related: VoiceTaskQueue, VoiceTaskStatus</td></tr>
+<tr><td>VoiceTaskQueue</td><td>A proposed interface managing an ordered set of VoiceTask instances awaiting or in execution, letting a voice agent report progress on background work without blocking the conversational turn.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html); Di Maio Voice AI book manuscript, Ch.4 'Background Processing'</td><td>related: VoiceTask, VoiceTaskCallback</td></tr>
+<tr><td>VoiceTaskStatus</td><td>A proposed enumerated state (e.g. queued / running / done / failed) describing where a VoiceTask currently sits in its execution lifecycle.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html)</td><td>related: VoiceTask</td></tr>
+<tr><td>VoiceTaskResult</td><td>A proposed interface carrying the outcome of a completed VoiceTask, for the agent to summarize back to the user at an appropriate conversational moment.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html)</td><td>related: VoiceTask, VoiceTaskStatus</td></tr>
+<tr><td>VoiceTaskCallback</td><td>A proposed callback interface invoked when a VoiceTask changes status, letting an application surface background-task progress (e.g. 'still working on that booking') during an ongoing voice session.</td><td>AI-KR CG voiceAI drafts (voice-ai-standards-withnewtypes.html)</td><td>related: VoiceTaskQueue, VoiceTaskStatus</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="commerce">
+      <h2>Commerce &amp; settlement</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>Conversational commerce</td><td>Purchases, bookings, or account transactions initiated and completed through a spoken dialogue with a voice agent rather than a visual UI.</td><td>Industry usage; general voice-commerce literature</td><td>broader: Commerce &amp;amp; settlement</td></tr>
+<tr><td>Voice-authorized payment</td><td>A payment or transfer for which spoken confirmation (optionally paired with voice biometric verification) constitutes part of the authorization chain.</td><td>Industry usage; general voice-commerce literature</td><td>related: voice biometrics</td></tr>
+<tr><td>IVR payment (PCI DSS scope)</td><td>Interactive-voice-response capture of card or account details, a channel subject to PCI DSS de-scoping and secure-capture requirements distinct from web/app payment flows.</td><td>PCI Security Standards Council guidance (general)</td><td>related: telephony agent, MRCP</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="oversight">
+      <h2>Oversight, safety &amp; interpretability</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>Voice deepfake / voice cloning</td><td>Synthetic audio generated to mimic a specific person's voice, used both legitimately (personalized TTS) and adversarially (impersonation, fraud).</td><td>Sardine 'AI Fraud Vectors' 2026; fintech.global 2026</td><td>related: liveness detection, voice biometrics</td></tr>
+<tr><td>Liveness detection (voice)</td><td>Techniques that distinguish a live human speaker from a replayed, synthetic, or deepfaked audio stream during authentication.</td><td>Fintech Global 2026; Sardine 'AI Fraud Vectors' 2026</td><td>related: voice biometrics, voice deepfake</td></tr>
+<tr><td>Spoken hallucination</td><td>An ASR/LLM pipeline producing a fluent but factually or contextually incorrect spoken response, a voice-specific instance of model hallucination compounded by transcription error.</td><td>General LLM/voice-agent evaluation literature</td><td>related: WER, agent-as-judge</td></tr>
+<tr><td>WER (Word Error Rate)</td><td>The standard metric for ASR transcription accuracy; a necessary but insufficient measure of voice-agent quality, as it does not capture turn-taking, latency, or task success.</td><td>How to Evaluate Voice AI Agents (industry practitioner literature)</td><td>related: Task Success Rate</td></tr>
+<tr><td>Task Success Rate (TSR)</td><td>The percentage of voice-agent interactions that meet defined goal and constraint criteria, used as an outcome-level evaluation metric distinct from transcription accuracy.</td><td>How to Evaluate Voice AI Agents (industry practitioner literature)</td><td>related: WER</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="regulation">
+      <h2>Regulation &amp; governance</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>AI voice disclosure obligation</td><td>A regulatory requirement (e.g., EU AI Act Article 50 transparency obligations) that a person interacting with a voice system be informed they are speaking with an AI, absent an applicable exemption.</td><td>EU AI Act, Article 50 (general reference; cf. AI-KR CG vocabulary 'Article 51/53')</td><td>related: EU AI Act</td></tr>
+<tr><td>FCC AI-voice robocall rule</td><td>US Federal Communications Commission rulemaking treating AI-generated voice calls under existing robocall/TCPA consent requirements.</td><td>FCC declaratory ruling (general reference)</td><td>related: telephony agent</td></tr>
+<tr><td>Voice call recording consent law</td><td>Jurisdiction-dependent (one-party vs. two-party/all-party consent) legal requirement governing whether a voice agent may record a call, relevant to session logging and model training.</td><td>General wiretapping/consent-law reference (jurisdiction-dependent)</td><td>related: VoiceContext</td></tr>
+<tr><td>Accessibility conformance (voice)</td><td>Requirements (e.g., WCAG success criteria touching audio alternatives, timing adjustable, and non-text contrast for visual voice-UI companions) that a voice interface must meet for users with disabilities.</td><td>[[WCAG22]]</td><td>related: W3C Voice Interaction</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="agentic">
+      <h2>Agentic standards &amp; standards bodies</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>W3C Voice Interaction (Smart Voice Agents) initiative</td><td>W3C activity and workshop track (Smart Voice Agents Workshop, October 2025) exploring standardization needs for voice-driven agentic interfaces on the Web.</td><td>W3C Smart Voice Agents Workshop</td><td>related: AI-KR CG voiceAI drafts</td></tr>
+<tr><td>W3C Web Speech API</td><td>A W3C/WHATWG specification exposing browser-native speech recognition and speech synthesis to web applications.</td><td>[[WEB-SPEECH-API]]</td><td>related: ASR, TTS</td></tr>
+<tr><td>W3C SSML / VoiceXML / EMMA family</td><td>The existing W3C Voice Browser Working Group specification family (SSML, VoiceXML, EMMA, PLS, SRGS) that any new agentic voice vocabulary must position itself relative to.</td><td>W3C Voice Browser Working Group</td><td>related: SSML, VoiceXML, EMMA</td></tr>
+<tr><td>MRCPv2</td><td>IETF specification for the Media Resource Control Protocol used in telephony-integrated speech deployments.</td><td>[[MRCPV2]]</td><td>related: MRCP, telephony agent</td></tr>
+<tr><td>W3C Autonomous Agents on the Web (WebAgents) CG</td><td>W3C Community Group on Web-based multi-agent systems, named by the Smart Voice Agents Workshop report as one of four relevant standardization homes for voice-agent interoperability work.</td><td>[[SVAREPORT]]</td><td>related: W3C AI Agent Protocol CG</td></tr>
+<tr><td>W3C Semantic 3D Content Accessibility CG</td><td>W3C Community Group developing metadata and structural conventions to make three-dimensional and immersive web content legible to assistive technology, including voice agents; named by the Smart Voice Agents Workshop report as relevant to the accessibility gap it identified.</td><td>[[SVAREPORT]]</td><td>related: Semantic 3D content accessibility, embeddable voice agent</td></tr>
+<tr><td>Open Voice Interoperability Initiative (OVON)</td><td>The originating body for the Open Floor Protocol, developing standards for coordinating turn-taking and floor control across independently built voice agents and human participants sharing a conversation.</td><td>[[SVAREPORT]]</td><td>related: Open Floor Protocol</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="applied">
+      <h2>Applied domains</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>Call-center automation</td><td>Deployment of voice agents to handle inbound/outbound contact-center interactions, often measured against human-agent baselines for AHT and CSAT.</td><td>Industry literature; general contact-center automation sources</td><td>related: Task Success Rate</td></tr>
+<tr><td>Voice banking / IVR banking</td><td>Telephony- or app-based spoken interaction for account inquiries, transfers, and card servicing, a channel with distinct fraud and authentication considerations.</td><td>General fintech/voice-banking literature</td><td>related: voice biometrics, IVR payment</td></tr>
+<tr><td>Oral assessment / voice interview</td><td>Use of voice agents to conduct structured spoken examinations or interviews, requiring turn-taking that tolerates thinking pauses and downstream transcript grading.</td><td>[[ORALVOICE]]</td><td>related: endpointing, WER</td></tr>
+<tr><td>Accessibility voice assistance</td><td>Voice-agent deployment specifically to support users with visual, motor, or literacy-related access needs.</td><td>General accessibility literature; [[WCAG22]]</td><td>related: Accessibility conformance (voice)</td></tr>
+<tr><td>Automotive voice assistant</td><td>In-cabin voice agent operating under far-field, road-noise, and safety-critical latency constraints distinct from handset or desktop deployments.</td><td>General automotive voice-agent literature</td><td>related: VAD, barge-in</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="appendix-impl">
+      <h2>Appendix: Implementation-layer vocabulary (parsed from open-source repositories)</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>Agent (LiveKit usage)</td><td>In LiveKit's runtime model, the configured unit of instructions and capabilities that gets invoked to handle a turn — distinct from the session or process that hosts it.</td><td><code>github.com/livekit/agents</code> README</td><td>related: AgentSession</td></tr>
+<tr><td>AgentSession</td><td>The runtime object that owns a single end-user interaction lifecycle, wiring VAD, STT, LLM, and TTS components together and mediating turn state for the Agent(s) running within it.</td><td><code>github.com/livekit/agents</code> README</td><td>related: Agent, entrypoint</td></tr>
+<tr><td>entrypoint (session)</td><td>The function invoked once per incoming session or job — analogous to a web server's request handler — from which an AgentSession and its Agent(s) are constructed and started.</td><td><code>github.com/livekit/agents</code> README</td><td>related: AgentSession, AgentServer/Worker</td></tr>
+<tr><td>AgentServer / Worker process</td><td>The long-running process that accepts incoming jobs (calls/sessions), applies scheduling, and spawns a per-session AgentSession to handle each one.</td><td><code>github.com/livekit/agents</code> README</td><td>related: entrypoint</td></tr>
+<tr><td>Extension (TEN usage)</td><td>A modular, independently swappable component — e.g. an STT, LLM, TTS, VAD, or turn-detection implementation — that plugs into a voice-agent Graph without requiring changes to the surrounding pipeline.</td><td><code>github.com/TEN-framework/ten-framework</code> README</td><td>related: Graph (voice-agent)</td></tr>
+<tr><td>Graph (voice-agent, TEN usage)</td><td>The declarative wiring of Extensions into a running voice-agent pipeline, analogous to a signal-flow diagram, that a TEN-based runtime executes.</td><td><code>github.com/TEN-framework/ten-framework</code> README</td><td>related: Extension</td></tr>
+<tr><td>Pipeline (Pipecat usage)</td><td>An ordered, composable chain of Frame Processors through which audio, text, and control data flow; the core execution unit of a Pipecat voice agent.</td><td><code>github.com/pipecat-ai/pipecat</code> README</td><td>related: Frame, Processor</td></tr>
+<tr><td>Frame (Pipecat usage)</td><td>The atomic unit of data — an audio chunk, a partial transcript, an LLM token, or a control signal — passed between Processors along a Pipeline.</td><td><code>github.com/pipecat-ai/pipecat</code> README</td><td>related: Pipeline, Processor</td></tr>
+<tr><td>Frame Processor</td><td>A single-responsibility stage in a Pipeline (e.g. an STT, LLM, or TTS service) that consumes and/or emits Frames.</td><td><code>github.com/pipecat-ai/pipecat</code> README</td><td>related: Frame, Pipeline</td></tr>
+<tr><td>Transport (Pipecat usage)</td><td>The Pipeline stage responsible for moving audio/video between the pipeline and the outside world over a specific medium (WebRTC, WebSocket, telephony), decoupling pipeline logic from connection technology.</td><td><code>github.com/pipecat-ai/pipecat</code> README</td><td>related: Pipeline, telephony agent</td></tr>
+<tr><td>Serializer (Pipecat usage)</td><td>A component that translates between a pipeline's internal Frame representation and a specific telephony/PBX provider's wire protocol (e.g. Twilio, Genesys, Plivo media streams).</td><td><code>github.com/pipecat-ai/pipecat</code> README</td><td>related: Transport, telephony agent</td></tr>
+<tr><td>Speech-to-Speech (S2S) service</td><td>A single integrated model or service that performs recognition, reasoning, and synthesis in one hop (e.g. a realtime multimodal API), as an alternative to composing separate STT, LLM, and TTS Processors.</td><td><code>github.com/pipecat-ai/pipecat</code> README (services table)</td><td>related: ASR, TTS, Full-duplex voice agent</td></tr>
+<tr><td>StreamingConversation</td><td>Vocode's core abstraction for a real-time, full-duplex spoken exchange between a user and an LLM-backed agent, coordinating streaming STT input and streaming TTS output over a single call/session object.</td><td><code>github.com/vocodedev/vocode-core</code> README</td><td>related: Full-duplex voice agent, AgentSession</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="appendix-book">
+      <h2>Appendix: Design vocabulary from the Voice AI book (Di Maio, unpublished manuscript)</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>CRUX Framework</td><td>Control, Respect, User-Centered, eXcellence — a four-part design framework proposed in the book for evaluating whether a voice interaction respects user agency, rather than only whether it works technically.</td><td>Di Maio, Voice AI book manuscript (unpublished; Chapter 3, 'Standards' / conversational AI standards roadmap)</td><td>related: Configuration Over Assumption</td></tr>
+<tr><td>Configuration Over Assumption</td><td>The book's stated core design principle: rather than a voice agent assuming a single 'correct' interaction pace or style, the system exposes timing, interruption-handling, and interaction-pattern choices as user-configurable settings.</td><td>Di Maio, Voice AI book manuscript (unpublished; Chapter 4, 'Voice Kit Vision')</td><td>related: Deep Thinking Mode, Quick Exchange Mode, CRUX Framework</td></tr>
+<tr><td>Deep Thinking Mode</td><td>A configurable voice-interaction mode prioritizing minimal interruption, extended silence tolerance, and support for non-linear exploration of half-formed ideas.</td><td>Di Maio, Voice AI book manuscript (unpublished; Chapter 4, 'Configurable Interaction Modes')</td><td>related: Configuration Over Assumption; contrast: Quick Exchange Mode</td></tr>
+<tr><td>Quick Exchange Mode</td><td>A configurable voice-interaction mode optimized for short, rapid, transactional turns, contrasted with Deep Thinking Mode in the book's mode taxonomy.</td><td>Di Maio, Voice AI book manuscript (unpublished; Chapter 4, 'Configurable Interaction Modes')</td><td>related: Configuration Over Assumption; contrast: Deep Thinking Mode</td></tr>
+<tr><td>Thinking Space (&#x27;Hold on&#x27; mode)</td><td>A user-invocable state in which the agent suspends response generation while the user composes a longer or more complex thought aloud — distinct from ordinary barge-in because the user is signalling 'not finished' rather than interrupting the agent.</td><td>Di Maio, Voice AI book manuscript (unpublished; Chapter 4, 'Interaction Control')</td><td>related: barge-in, turn-taking</td></tr>
+<tr><td>Limited Voice Options (anti-cloning pattern)</td><td>A safety design pattern in which a voice agent's TTS output is restricted to a small, preset roster of synthetic voices specifically to prevent the system being used to clone or impersonate a real person's voice.</td><td>Di Maio, Voice AI book manuscript (unpublished; technical-stack notes, citing Anthropic voice-safety design practice)</td><td>related: voice cloning, deepfake detection (AI-KR CG financial-fraud vocabulary)</td></tr>
+<tr><td>Voice-to-text-to-voice gap</td><td>The loss of conversational context and continuity that occurs when a user's interaction crosses between a voice channel and a text/visual channel of the same underlying assistant; treated in the book as a distinct usability failure mode rather than a minor implementation detail.</td><td>Di Maio, Voice AI book manuscript (unpublished; Chapter 3.4, 'Integration: Seamless Cross-Modal Experience')</td><td>related: VoiceContext, VoiceSessionRecovery</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="appendix-workshop">
+      <h2>Appendix: Vocabulary from the W3C Smart Voice Agents Workshop Report (Feb 2026)</h2>
+      <table class="data">
+        <thead><tr><th>Term</th><th>Proposed definition</th><th>Source</th><th>Relations</th></tr></thead>
+        <tbody>
+        <tr><td>Phonetic markup (voice agents)</td><td>Markup specifying how a text string should be pronounced (e.g. an IPA override), flagged by the workshop as an unresolved shared-standard gap for proper names, abbreviations, and dialect-specific pronunciation.</td><td>[[SVAREPORT]]</td><td>related: SSML; Issue 1, pronunciation &amp; language representation</td></tr>
+<tr><td>Dialect variation handling</td><td>The unresolved standards gap around how a voice agent should represent, select, or switch between regional or dialect pronunciations and forms of the same language.</td><td>[[SVAREPORT]]</td><td>related: phonetic markup; Issue 1</td></tr>
+<tr><td>Author pronunciation control</td><td>The ability for a content author — rather than the end user or platform — to specify how their own name, brand, or terminology should be pronounced by a voice agent reading it aloud.</td><td>[[SVAREPORT]]</td><td>related: phonetic markup; Issue 1</td></tr>
+<tr><td>Combined ASR+LLM error mode</td><td>An error class specific to voice agents in which a transcription mistake and a downstream LLM reasoning mistake compound each other, distinct from either a pure ASR error or a pure text-based LLM hallucination.</td><td>[[SVAREPORT]]</td><td>related: WER, spoken hallucination; Issue 2, reliability &amp; hallucination control</td></tr>
+<tr><td>Shared voice-agent benchmark</td><td>The workshop's identified gap: the absence of a common, cross-vendor evaluation benchmark for voice-agent reliability, as distinct from single-component benchmarks like WER.</td><td>[[SVAREPORT]]</td><td>related: Task Success Rate; Issue 2</td></tr>
+<tr><td>Incremental speech processing</td><td>Processing a user's utterance word-by-word or chunk-by-chunk as it arrives, rather than waiting for a complete utterance, to enable lower-latency response planning.</td><td>[[SVAREPORT]]</td><td>related: endpointing, barge-in; Issue 3, real-time interaction</td></tr>
+<tr><td>Open Floor Protocol</td><td>A multi-agent, multi-human conversational interoperability standard for coordinating turn-taking and floor control across independently built voice agents and human participants sharing the same conversation.</td><td>[[SVAREPORT]]; Open Voice Interoperability Initiative</td><td>related: Open Voice Interoperability Initiative (OVON); Issue 4, interoperability scope &amp; architecture</td></tr>
+<tr><td>Integration profile (voice interoperability)</td><td>One of four levels at which the workshop found voice-agent interoperability could be standardized — protocol level, API level, dialog-model level, or integration-profile level — with no consensus yet on which level(s) standards work should target.</td><td>[[SVAREPORT]]</td><td>related: Open Floor Protocol; Issue 4</td></tr>
+<tr><td>Delegation boundary (voice agent)</td><td>The explicit scope of what actions and data access a user has authorized a voice agent to exercise on their behalf; flagged by the workshop as needing a standard representation rather than per-vendor consent screens.</td><td>[[SVAREPORT]]</td><td>related: Know Your Agent (AI-KR CG financial-fraud vocabulary); Issue 5, privacy, trust &amp; delegation boundaries</td></tr>
+<tr><td>Identity assertion (voice agent)</td><td>A verifiable claim about who — which person, organization, or agent — is speaking or is being represented by a given voice-agent turn, needed for both trust and dispute-resolution purposes.</td><td>[[SVAREPORT]]</td><td>related: delegation boundary; Issue 5</td></tr>
+<tr><td>Auditable agent action</td><td>A voice-agent action (a purchase, a booking, a data disclosure) recorded in a form a user or reviewer can later inspect and verify; identified as a governance gap by the workshop.</td><td>[[SVAREPORT]]</td><td>related: delegation boundary, identity assertion; Issue 5</td></tr>
+<tr><td>Multimodal intent fusion</td><td>Combining signals from more than one modality (e.g. speech plus gaze, or speech plus touch) to resolve a single user intent; an unresolved standards area per the workshop.</td><td>[[SVAREPORT]]</td><td>related: gaze-aware dialog, time alignment; Issue 6, multimodal coordination &amp; synchronization</td></tr>
+<tr><td>Gaze-aware dialog</td><td>A dialog system design that incorporates where a user is looking as an input signal alongside speech, relevant to smart-glasses and immersive voice agents.</td><td>[[SVAREPORT]]</td><td>related: multimodal intent fusion; Issue 6</td></tr>
+<tr><td>Time alignment (multimodal)</td><td>Synchronizing timestamps across independently captured modality streams (audio, video, gaze, touch) so a multimodal voice agent can correctly attribute which signals belong to the same moment in the interaction.</td><td>[[SVAREPORT]]</td><td>related: multimodal intent fusion, speaker diarization; Issue 6</td></tr>
+<tr><td>Embeddable voice agent (accessibility)</td><td>A voice agent designed to be inserted into third-party or immersive (e.g. WebXR) content specifically to provide an accessible interaction path for blind or low-vision users, rather than as a general-purpose assistant.</td><td>[[SVAREPORT]]</td><td>related: Semantic 3D content accessibility; Issue 7, accessibility in immersive/web contexts</td></tr>
+<tr><td>Semantic 3D content accessibility</td><td>Metadata and structural conventions that make three-dimensional or immersive web content legible to a voice agent — and thence to the user — in the way ARIA makes 2D DOM content legible to a screen reader.</td><td>[[SVAREPORT]]; W3C Semantic 3D Content Accessibility CG</td><td>related: embeddable voice agent, Accessibility conformance (voice); Issue 7</td></tr>
+<tr><td>Persona safety (voice agent)</td><td>Design and governance constraints on a voice agent's adopted persona (name, voice, personality) intended to prevent deceptive impersonation or inappropriate emotional manipulation of the user.</td><td>[[SVAREPORT]]</td><td>related: Limited Voice Options; Issue 8, cultural, emotional &amp; persona adaptation</td></tr>
+<tr><td>Emotion signaling (voice agent)</td><td>A voice agent's use of prosodic or lexical cues to convey an emotional register (e.g. empathy, urgency); identified by the workshop as an area lacking shared conventions or safety guidance.</td><td>[[SVAREPORT]]</td><td>related: prosody, persona safety; Issue 8</td></tr>
+<tr><td>Culturally-aware dialog behavior</td><td>Adapting a voice agent's conversational conventions (directness, formality, turn-taking norms) to the cultural context of the user; flagged as unresolved standards territory by the workshop.</td><td>[[SVAREPORT]]</td><td>related: persona safety, turn-taking; Issue 8</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+
+  <section id="notes" class="informative">
+    <h2>Notes and provenance</h2>
+    
+<p>
+Category 5 (Commerce &amp; settlement) has fewer terms in this domain than others; voice-specific
+commerce vocabulary is comparatively immature and is flagged as an area for further contribution.
+</p>
+<p>
+Several terms (<code>VoiceInteractionState</code>, <code>VoiceContext</code>,
+<code>VoicePlaybackController</code>, <code>VoiceSessionRecovery</code>,
+<code>VoiceTask</code>, <code>VoiceTaskQueue</code>, <code>VoiceTaskStatus</code>,
+<code>VoiceTaskResult</code>, <code>VoiceTaskCallback</code>) originate as proposed WebIDL
+types in the CG's own voiceAI drafts and are carried into this vocabulary as candidate terms
+rather than externally sourced definitions; they should be flagged as CG-internal proposals on
+submission, not established terms of art.
+</p>
+<p>
+Appendix A terms are sourced from repository README files current as of this draft and should
+be re-checked against the repositories' own glossary/concepts documentation (where one exists)
+before formal submission, since framework terminology evolves quickly.
+</p>
+<p>
+Appendix B terms come from an unpublished manuscript and have no external citation available yet;
+treat them as editor-proposed working terminology, not established usage, until the manuscript
+is published.
+</p>
+<p>
+Appendix C terms paraphrase the workshop report's eight cross-cutting issues into individual
+vocabulary entries; the report itself frames these as an agenda for near-term Community Group
+work rather than settled definitions, and each entry should be checked against the full report
+text before formal submission.
+</p>
+
+  </section>
+
+  <section id="conformance">
+    <p>
+      This document does not define conformance criteria; it is a terminology
+      collection for review, discussion, and possible future incorporation
+      into a normative CG vocabulary.
+    </p>
+  </section>
+
+</body>
+</html>
