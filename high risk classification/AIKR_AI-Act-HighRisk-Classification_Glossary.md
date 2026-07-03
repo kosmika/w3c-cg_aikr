@@ -1,6 +1,8 @@
 # AI Act High-Risk Classification Guidelines — Glossary & Resource Notes  v 1   July 1 2026
 
-*W3C AIKR CG  Consultation:  Based on source: D[raft Commission guidelines on the classification of high-risk AI systems under Article 6 AI Act (2026),](https://digital-strategy.ec.europa.eu/en/consultations/targeted-consultation-draft-guidelines-classification-high-risk-artificial-intelligence-systems)   THE CG is going to submit comments and recommendations to the Target Consultation open until 23 July*  
+*W3C AIKR CG  Consultation  Opens 1 July 2026:  Based on source: D[raft Commission guidelines on the classification of high-risk AI systems under Article 6 AI Act (2026),](https://digital-strategy.ec.europa.eu/en/consultations/targeted-consultation-draft-guidelines-classification-high-risk-artificial-intelligence-systems)  
+
+THE CG is going to submit comments and recommendations to the Target Consultation open until 23 July*  
 *AND*  
 *Compile a public vocabulary*
 
